@@ -30,26 +30,27 @@ export default function LandingPage() {
 
       <main className="flex-1 flex flex-col">
         {/* 2. Hero Section */}
-        <section className="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/30">
+        <section className="relative overflow-hidden pt-16 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/30">
           {/* Subtle background glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-blue-100/50 via-sky-50/30 to-transparent blur-3xl -z-10 pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-100/50 via-sky-50/30 to-transparent blur-3xl -z-10 pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-4xl mx-auto space-y-6">
+            {/* Header Content with controlled max-width */}
+            <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
               {/* Tag Badges */}
-              <div className="inline-flex flex-wrap items-center justify-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 shadow-xs">
+              <div className="inline-flex flex-wrap items-center justify-center gap-2.5 mb-6">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 shadow-xs">
                   <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
                   Pass Rate Guarantee
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-xs">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   Updated for 2026
                 </span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15] mb-6">
                 Pass Your Citizenship Exam on the{' '}
                 <span className="text-blue-600 underline decoration-blue-200 decoration-wavy decoration-2 underline-offset-4">
                   First Attempt
@@ -58,39 +59,37 @@ export default function LandingPage() {
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto font-normal leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
                 The high-retention prep platform built specifically for the{' '}
                 <strong className="text-slate-900 font-semibold">United States (USCIS)</strong>,{' '}
                 <strong className="text-slate-900 font-semibold">United Kingdom (Life in the UK)</strong>,{' '}
                 <strong className="text-slate-900 font-semibold">Canada (IRCC)</strong>, and{' '}
                 <strong className="text-slate-900 font-semibold">Australia (DHA)</strong> citizenship examinations.
               </p>
+            </div>
 
-              {/* Interactive Country Selector Grid (Client Component) */}
-              <div className="pt-6">
-                <CountrySelector initialCountry="us" />
+            {/* Interactive Country Selector Grid (Spans the full max-w-7xl width) */}
+            <CountrySelector initialCountry="us" />
+
+            {/* Trust Badges */}
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-slate-500">
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                </div>
+                <span className="font-medium text-slate-600">Official Question Banks</span>
               </div>
-
-              {/* Trust Badges */}
-              <div className="pt-4 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm text-slate-600">
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-medium text-slate-700">Official Question Banks</span>
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                  <ShieldCheck className="w-3.5 h-3.5" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-medium text-slate-700">Verified by Immigration Lawyers</span>
+                <span className="font-medium text-slate-600">Verified by Immigration Lawyers</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                  <Award className="w-3.5 h-3.5" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                    <Award className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-medium text-slate-700">No Credit Card Required</span>
-                </div>
+                <span className="font-medium text-slate-600">No Credit Card Required</span>
               </div>
             </div>
           </div>
