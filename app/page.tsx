@@ -30,7 +30,7 @@ export default function LandingPage() {
 
       <main className="flex-1 flex flex-col">
         {/* 2. Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/30">
+        <section id="study-guides" className="relative overflow-hidden pt-16 pb-20 md:pt-20 md:pb-28 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/30">
           {/* Subtle background glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-100/50 via-sky-50/30 to-transparent blur-3xl -z-10 pointer-events-none" />
 
@@ -195,7 +195,7 @@ export default function LandingPage() {
             {/* 4 Feature Cards Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Card 1 (Top Left): 1:1 Real Exam Simulation */}
-              <div className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+              <div id="practice-questions" className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/70 px-3 py-1 rounded-full">
@@ -219,7 +219,7 @@ export default function LandingPage() {
               </div>
 
               {/* Card 2 (Top Right): Context, Not Just Memorization */}
-              <div className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+              <div id="study-notes" className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-100/70 px-3 py-1 rounded-full">
@@ -357,7 +357,7 @@ export default function LandingPage() {
               </div>
 
               {/* Card 4 (Bottom Right): Audio Flashcards & Interview Simulator */}
-              <div className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+              <div id="audio-flashcards" className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-bold uppercase tracking-wider text-cyan-700 bg-cyan-100/70 px-3 py-1 rounded-full">
@@ -527,7 +527,7 @@ export default function LandingPage() {
         </section>
 
         {/* 6. Interactive FAQ Section (Client Component) */}
-        <section id="study-guides" className="py-16 md:py-24 bg-white">
+        <section id="faq" className="py-16 md:py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
