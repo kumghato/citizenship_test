@@ -2,13 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {
-  ShieldCheck,
-  ChevronLeft,
-  ChevronDown,
-  CheckCircle2,
-  RotateCcw,
-} from 'lucide-react';
 import { SupportedCountry } from '@/lib/quizData';
 
 interface ResultsNavbarProps {
@@ -43,7 +36,6 @@ export function ResultsNavbar({
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors"
             title="Return to CivicPass Home"
           >
-            <ChevronLeft className="w-4 h-4" />
             <span className="hidden sm:inline">Exit to Home</span>
           </Link>
 
@@ -51,7 +43,7 @@ export function ResultsNavbar({
 
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
-              <ShieldCheck className="w-4.5 h-4.5 stroke-[2.2]" />
+              <span>CP</span>
             </div>
             <span className="font-extrabold text-slate-900 text-base tracking-tight hidden md:inline">
               Civic<span className="text-blue-600">Pass</span>
@@ -67,7 +59,6 @@ export function ResultsNavbar({
             >
               <span>{flag}</span>
               <span className="hidden sm:inline">{countryName}</span>
-              <ChevronDown className="w-3 h-3 text-blue-500" />
             </button>
 
             {dropdownOpen && (
@@ -115,7 +106,6 @@ export function ResultsNavbar({
 
           {/* ACTIVE STATE PILL: Results & Review */}
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold bg-blue-600 text-white shadow-xs">
-            <CheckCircle2 className="w-3.5 h-3.5" />
             <span>2. Results &amp; Review</span>
           </div>
         </nav>
@@ -129,7 +119,6 @@ export function ResultsNavbar({
                 : 'text-amber-800 bg-amber-50 border-amber-200/90'
             }`}
           >
-            <CheckCircle2 className={`w-3.5 h-3.5 ${hasPassed ? 'text-emerald-600' : 'text-amber-600'}`} />
             <span>{hasPassed ? 'Benchmark Passed' : 'Benchmark Pending'}</span>
           </div>
 
@@ -138,7 +127,6 @@ export function ResultsNavbar({
             className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors"
             title="Retake practice examination"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
             <span className="hidden sm:inline">Retake</span>
           </Link>
         </div>

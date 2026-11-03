@@ -1,0 +1,42 @@
+{
+  "version": "2026.2",
+  "description": "Country-keyed CivicPass practice question sets partitioned into separate country JSON files in data/questions/ with 1,000+ questions each.",
+  "countries": {
+    "us": {
+      "countryName": "United States",
+      "shortCode": "USA",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
+      "officialBody": "USCIS \u00b7 U.S. Department of Homeland Security",
+      "examTitle": "USCIS Civics Practice Exam",
+      "totalAvailableQuestions": 1040,
+      "dataFile": "data/questions/us.json"
+    },
+    "uk": {
+      "countryName": "United Kingdom",
+      "shortCode": "GBR",
+      "flag": "\ud83c\uddec\ud83c\udde7",
+      "officialBody": "Home Office \u00b7 UK Visas & Immigration",
+      "examTitle": "Life in the UK Practice Test",
+      "totalAvailableQuestions": 1090,
+      "dataFile": "data/questions/uk.json"
+    },
+    "ca": {
+      "countryName": "Canada",
+      "shortCode": "CAN",
+      "flag": "\ud83c\udde8\ud83c\udde6",
+      "officialBody": "Immigration, Refugees and Citizenship Canada (IRCC)",
+      "examTitle": "Discover Canada Official Practice Exam",
+      "totalAvailableQuestions": 1144,
+      "dataFile": "data/questions/ca.json"
+    },
+    "au": {
+      "countryName": "Australia",
+      "shortCode": "AUS",
+      "flag": "\ud83c\udde6\ud83c\uddfa",
+      "officialBody": "Department of Home Affairs (DHA)",
+      "examTitle": "Our Common Bond Australian Practice Exam",
+      "totalAvailableQuestions": 1108,
+      "dataFile": "data/questions/au.json"
+    }
+  }
+}

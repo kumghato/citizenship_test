@@ -1,15 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  ShieldCheck,
-  CheckCircle2,
-  PhoneCall,
-  HelpCircle,
-  Volume2,
-  RotateCcw,
-  X,
-} from 'lucide-react';
 
 interface TestRulesCardProps {
   countryName: string;
@@ -45,7 +36,6 @@ export function TestRulesCard({
 
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
             <span>Proctor Active</span>
           </div>
         </div>
@@ -53,7 +43,6 @@ export function TestRulesCard({
         {/* 3 Key Benchmark Rules */}
         <div className="space-y-3 text-xs text-slate-600">
           <div className="flex items-start gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-slate-800">
                 {passingPercentage}% Passing Threshold:
@@ -63,7 +52,6 @@ export function TestRulesCard({
           </div>
 
           <div className="flex items-start gap-2.5">
-            <RotateCcw className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-slate-800">Bidirectional Navigation:</span>{' '}
               Freely jump between questions, edit selections at any time, or flag questions for review before submitting.
@@ -71,7 +59,6 @@ export function TestRulesCard({
           </div>
 
           <div className="flex items-start gap-2.5">
-            <Volume2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-slate-800">Audio Voice Assistance:</span>{' '}
               Official voice prompt synthesis available on every question to practice oral interview cadence.
@@ -87,7 +74,6 @@ export function TestRulesCard({
             onClick={() => setShowProctorHelp(true)}
             className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1 transition-colors"
           >
-            <HelpCircle className="w-3.5 h-3.5" />
             <span>Proctor Help</span>
           </button>
         </div>
@@ -97,7 +83,6 @@ export function TestRulesCard({
       <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-4.5 text-white shadow-xs space-y-3">
         <div className="flex items-center justify-between text-xs">
           <span className="text-slate-300 font-semibold flex items-center gap-1.5">
-            <PhoneCall className="w-3.5 h-3.5 text-blue-400" />
             Naturalization Hotline
           </span>
           <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded text-slate-300">
@@ -120,7 +105,6 @@ export function TestRulesCard({
           }}
           className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white transition-all flex items-center justify-center gap-2 shadow-xs"
         >
-          <PhoneCall className="w-3.5 h-3.5" />
           <span>{callingHotline ? 'Dialing Official Support...' : 'Connect to Official Line'}</span>
         </button>
       </div>
@@ -131,14 +115,14 @@ export function TestRulesCard({
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2 text-slate-900 font-bold text-base">
-                <ShieldCheck className="w-5 h-5 text-emerald-600" />
                 <span>Automated Proctor Information</span>
               </div>
               <button
                 onClick={() => setShowProctorHelp(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg text-lg leading-none"
+                aria-label="Close proctor information"
               >
-                <X className="w-5 h-5" />
+                &times;
               </button>
             </div>
 

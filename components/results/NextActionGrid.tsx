@@ -2,14 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {
-  BookOpen,
-  Award,
-  Compass,
-  ArrowRight,
-  Sparkles,
-  Check,
-} from 'lucide-react';
 
 interface NextActionGridProps {
   countryId?: string;
@@ -67,9 +59,6 @@ export function NextActionGrid({
         <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                <BookOpen className="w-5 h-5 stroke-[2.2]" />
-              </div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/70">
                 Targeted Drill
               </span>
@@ -96,15 +85,9 @@ export function NextActionGrid({
               }`}
             >
               {flashcardCreated ? (
-                <>
-                  <Check className="w-4 h-4" />
-                  <span>Flashcards Generated!</span>
-                </>
+                <span>Flashcards Generated!</span>
               ) : (
-                <>
-                  <Sparkles className="w-4 h-4" />
-                  <span>Create Custom Flash [{incorrectCount}]</span>
-                </>
+                <span>Create Custom Flash [{incorrectCount}]</span>
               )}
             </button>
           </div>
@@ -114,9 +97,6 @@ export function NextActionGrid({
         <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <Award className="w-5 h-5 stroke-[2.2]" />
-              </div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200/70">
                 Level 05
               </span>
@@ -138,7 +118,6 @@ export function NextActionGrid({
               className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200/90 flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
             >
               <span>Try Mock Exam #5</span>
-              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -147,9 +126,6 @@ export function NextActionGrid({
         <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
-                <Compass className="w-5 h-5 stroke-[2.2]" />
-              </div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/70">
                 Global Tracks
               </span>

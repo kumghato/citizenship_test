@@ -1,19 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import {
-  Play,
-  Pause,
-  RotateCcw,
-  Volume2,
-  VolumeX,
-  SkipForward,
-  SkipBack,
-  Mic,
-  Headphones,
-  CheckCircle,
-  Sparkles,
-} from 'lucide-react';
 
 interface AudioTrack {
   id: number;
@@ -133,7 +120,6 @@ export function AudioSimulatorPlayer() {
             ></span>
           </span>
           <span className="text-slate-300 font-semibold tracking-wide flex items-center gap-1.5">
-            <Headphones className="w-3.5 h-3.5 text-blue-400" />
             Interview Simulation Audio
           </span>
         </div>
@@ -204,7 +190,6 @@ export function AudioSimulatorPlayer() {
         {showAnswer ? (
           <div className="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-800/60 text-xs text-emerald-300 flex items-center justify-between animate-in fade-in duration-150">
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>
                 <strong className="text-white">Official Answer:</strong>{' '}
                 {track.expectedAnswer}
@@ -223,7 +208,6 @@ export function AudioSimulatorPlayer() {
               onClick={() => setShowAnswer(true)}
               className="text-blue-400 hover:text-blue-300 underline font-medium text-[11px] flex items-center gap-1"
             >
-              <Sparkles className="w-3 h-3" />
               Reveal Official Examiner Answer Key
             </button>
             <button
@@ -234,7 +218,6 @@ export function AudioSimulatorPlayer() {
                   : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
               }`}
             >
-              <Mic className="w-3 h-3" />
               <span>{micActive ? 'Listening...' : 'Simulate Oral Answer'}</span>
             </button>
           </div>
@@ -264,52 +247,44 @@ export function AudioSimulatorPlayer() {
         <div className="flex items-center gap-2">
           <button
             onClick={prevTrack}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="px-2 py-1 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors font-medium"
             title="Previous question"
           >
-            <SkipBack className="w-4 h-4" />
+            Prev
           </button>
 
           <button
             onClick={togglePlay}
-            className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 transition-transform active:scale-95"
+            className="px-3 py-1 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/30 transition-transform active:scale-95"
             title={isPlaying ? 'Pause simulation' : 'Play audio question'}
           >
-            {isPlaying ? (
-              <Pause className="w-4 h-4 fill-white" />
-            ) : (
-              <Play className="w-4 h-4 fill-white translate-x-0.5" />
-            )}
+            {isPlaying ? 'Pause' : 'Play'}
           </button>
 
           <button
             onClick={nextTrack}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="px-2 py-1 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors font-medium"
             title="Next question"
           >
-            <SkipForward className="w-4 h-4" />
+            Next
           </button>
 
           <button
             onClick={handleRestart}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="px-2 py-1 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors font-medium"
             title="Replay from beginning"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            Replay
           </button>
         </div>
 
         {/* Volume toggle */}
         <button
           onClick={() => setIsMuted(!isMuted)}
-          className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+          className="px-2 py-1 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors font-medium"
           title={isMuted ? 'Unmute' : 'Mute'}
         >
-          {isMuted ? (
-            <VolumeX className="w-4 h-4 text-red-400" />
-          ) : (
-            <Volume2 className="w-4 h-4" />
-          )}
+          {isMuted ? 'Unmute' : 'Mute'}
         </button>
       </div>
     </div>

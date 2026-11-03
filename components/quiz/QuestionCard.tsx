@@ -1,17 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  ChevronDown,
-  ChevronRight,
-  ChevronLeft,
-  ArrowRight,
-  Flag,
-  Check,
-  Scale,
-  Sparkles,
-  BookOpen,
-} from 'lucide-react';
 import { QuizQuestion } from '@/lib/quizData';
 
 interface QuestionCardProps {
@@ -133,7 +122,7 @@ export function QuestionCard({
                     Current Choice
                   </span>
                   <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs">
-                    <Check className="w-3.5 h-3.5 stroke-[2.8]" />
+                    <span className="w-2 h-2 rounded-full bg-white" />
                   </div>
                 </div>
               ) : (
@@ -154,14 +143,9 @@ export function QuestionCard({
             aria-expanded={showClue}
           >
             <div className="flex items-center gap-2">
-              <Scale className="w-4 h-4 text-blue-600" />
               <span>Need a study clue? Open Statutory Guidance</span>
             </div>
-            {showClue ? (
-              <ChevronDown className="w-4 h-4 text-slate-500" />
-            ) : (
-              <ChevronRight className="w-4 h-4 text-slate-500" />
-            )}
+            <span className="text-xs font-mono font-bold text-slate-500">{showClue ? '−' : '+'}</span>
           </button>
 
           {showClue && (
@@ -169,7 +153,6 @@ export function QuestionCard({
               {/* Clue Text */}
               <div className="p-3 rounded-lg bg-white border border-slate-200/80 text-slate-700 space-y-1">
                 <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5 text-blue-600" />
                   Statutory Clue
                 </div>
                 <p className="leading-relaxed text-slate-600">
@@ -188,7 +171,6 @@ export function QuestionCard({
               {/* Memory Mnemonic Anchor if available */}
               {question.statutoryGuidance.mnemonic && (
                 <div className="p-2.5 rounded-lg bg-blue-50 border border-blue-200/70 flex items-start gap-2 text-blue-950 text-[11.5px]">
-                  <Sparkles className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-blue-900">Memory Mnemonic Anchor:</strong>{' '}
                     {question.statutoryGuidance.mnemonic}
@@ -213,7 +195,6 @@ export function QuestionCard({
               : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 shadow-xs'
           }`}
         >
-          <ChevronLeft className="w-4 h-4" />
           <span>Previous Question</span>
         </button>
 
@@ -228,11 +209,6 @@ export function QuestionCard({
           }`}
           title="Flag this question to review later before submission"
         >
-          <Flag
-            className={`w-4 h-4 ${
-              isFlagged ? 'text-amber-500 fill-amber-400' : 'text-slate-400'
-            }`}
-          />
           <span>{isFlagged ? 'Flagged for Review' : 'Flag this question for review'}</span>
         </button>
 
@@ -244,7 +220,6 @@ export function QuestionCard({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <span>Review & Submit Exam</span>
-            <ArrowRight className="w-4 h-4" />
           </button>
         ) : (
           <button
@@ -253,7 +228,6 @@ export function QuestionCard({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <span>Next Question</span>
-            <ArrowRight className="w-4 h-4" />
           </button>
         )}
       </div>

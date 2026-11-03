@@ -1,15 +1,6 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import {
-  CheckCircle2,
-  XCircle,
-  Bookmark,
-  BookOpen,
-  Filter,
-  Sparkles,
-  Scale,
-} from 'lucide-react';
 import { ReviewQuestionItem } from '@/lib/resultsData';
 
 export type FilterTab = 'all' | 'incorrect' | 'correct' | 'flagged';
@@ -80,7 +71,6 @@ export function StatutoryReviewSection({
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-4 border-b border-slate-200/90">
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80">
-            <Scale className="w-3.5 h-3.5" />
             <span>Official Rubric Evaluation</span>
           </div>
 
@@ -184,9 +174,6 @@ export function StatutoryReviewSection({
       {/* Empty State if filter returns no items */}
       {filteredQuestions.length === 0 ? (
         <div className="rounded-3xl bg-white border border-slate-200 p-12 text-center space-y-4">
-          <div className="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
-            <Filter className="w-6 h-6" />
-          </div>
           <h3 className="text-lg font-bold text-slate-900">
             No questions match &ldquo;{activeFilter}&rdquo;
           </h3>
@@ -235,12 +222,10 @@ export function StatutoryReviewSection({
                       {/* Status Badge */}
                       {q.isCorrect ? (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-2xs">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                           <span>CORRECT</span>
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200 shadow-2xs">
-                          <XCircle className="w-3.5 h-3.5 text-rose-600" />
                           <span>INCORRECT</span>
                         </span>
                       )}
@@ -256,13 +241,6 @@ export function StatutoryReviewSection({
                         }`}
                         title={isBookmarked ? 'Remove bookmark' : 'Bookmark this question for review'}
                       >
-                        <Bookmark
-                          className={`w-3.5 h-3.5 ${
-                            isBookmarked
-                              ? 'fill-amber-500 text-amber-600'
-                              : 'text-slate-400'
-                          }`}
-                        />
                         <span className="hidden sm:inline">
                           {isBookmarked ? 'Saved' : 'Bookmark'}
                         </span>
@@ -294,23 +272,17 @@ export function StatutoryReviewSection({
                     >
                       <div className="flex items-center gap-2">
                         {q.isCorrect ? (
-                          <>
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
-                              YOUR CORRECT SUBMISSION &amp; OFFICIAL HIT:
-                            </span>
-                          </>
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+                            YOUR CORRECT SUBMISSION &amp; OFFICIAL HIT:
+                          </span>
                         ) : (
-                          <>
-                            <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
-                            <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700">
-                              YOUR SUBMISSION:
-                            </span>
-                          </>
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700">
+                            YOUR SUBMISSION:
+                          </span>
                         )}
                       </div>
 
-                      <div className="text-sm font-extrabold pl-6">
+                      <div className="text-sm font-extrabold">
                         {q.userAnswerText}
                       </div>
                     </div>
@@ -318,13 +290,12 @@ export function StatutoryReviewSection({
                     {/* Right Column: Official Accepted Historic Answer */}
                     <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/90 space-y-1.5 text-emerald-950">
                       <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
                         <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800">
                           OFFICIAL ACCEPTED HISTORIC ANSWER:
                         </span>
                       </div>
 
-                      <div className="text-sm font-extrabold text-slate-900 pl-6">
+                      <div className="text-sm font-extrabold text-slate-900">
                         {q.officialAnswerText}
                       </div>
                     </div>
@@ -333,7 +304,6 @@ export function StatutoryReviewSection({
                   {/* "Why this is correct" Callout Box */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/40 border border-blue-200/70 space-y-3">
                     <div className="flex items-center gap-2 text-xs font-bold text-blue-900">
-                      <BookOpen className="w-4 h-4 text-blue-600 shrink-0" />
                       <span>Why this is correct &amp; Official USCIS Context</span>
                     </div>
 
@@ -344,7 +314,6 @@ export function StatutoryReviewSection({
                     {/* Memory Mnemonic if available */}
                     {q.mnemonic && (
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-100/60 border border-blue-200/90 text-xs text-blue-900 font-medium">
-                        <Sparkles className="w-3.5 h-3.5 text-blue-700 shrink-0" />
                         <span>
                           <strong>CivicPass Mnemonic:</strong> {q.mnemonic}
                         </span>

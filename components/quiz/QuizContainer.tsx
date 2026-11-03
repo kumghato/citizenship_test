@@ -3,20 +3,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {
-  ShieldCheck,
-  ChevronLeft,
-  RotateCcw,
-  CheckCircle2,
-  AlertTriangle,
-  Play,
-  Edit3,
-  X,
-  ArrowRight,
-  BookOpen,
-} from 'lucide-react';
 
-import { CountryExamConfig } from '@/lib/quizData';
+import { CountryExamConfig, QuizQuestion } from '@/lib/quizData';
+import { ExamSubmissionPayload } from '@/lib/evaluateExam';
 import { QuizHeader } from './QuizHeader';
 import { QuestionCard } from './QuestionCard';
 import { QuestionPalette } from './QuestionPalette';
@@ -36,7 +25,6 @@ export function QuizContainer({ config }: QuizContainerProps) {
     bankPill,
     modeBadge,
     passingScore,
-    totalQuestions,
     passingPercentage,
     timeLimitSeconds,
     hotlineName,
@@ -44,11 +32,14 @@ export function QuizContainer({ config }: QuizContainerProps) {
     hotlineHours,
     dossierTitle,
     dossierParchmentTitle,
-    questions,
+    questions: initialQuestions = [],
   } = config;
 
   // Master Orchestration States
   const router = useRouter();
+  const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>(initialQuestions);
+  const [isLoadingApi, setIsLoadingApi] = useState<boolean>(false);
+  const [totalBankCount, setTotalBankCount] = useState<number>(1000);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [flaggedQuestions, setFlaggedQuestions] = useState<Set<number>>(new Set());
@@ -62,6 +53,52 @@ export function QuizContainer({ config }: QuizContainerProps) {
 
   // Timer interval reference
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Stop speech synthesis helper
+  const stopSpeech = useCallback(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    setIsSpeaking(false);
+  }, []);
+
+  // Fetch questions on demand via API
+  const fetchQuestionsFromApi = useCallback(
+    async (count = 20) => {
+      setIsLoadingApi(true);
+      stopSpeech();
+      try {
+        const res = await fetch(`/api/questions?country=${countryId}&limit=${count}&random=true`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (data.questions && data.questions.length > 0) {
+          setActiveQuestions(data.questions);
+          if (data.pagination?.totalAvailable) {
+            setTotalBankCount(data.pagination.totalAvailable);
+          }
+          setAnswers({});
+          setFlaggedQuestions(new Set());
+          setCurrentQuestionIndex(0);
+          setRemainingTime(timeLimitSeconds);
+          setIsSubmitted(false);
+          setIsPaused(false);
+          setReviewMode(false);
+        }
+      } catch (err) {
+        console.warn('Could not fetch questions from API, keeping current set', err);
+      } finally {
+        setIsLoadingApi(false);
+      }
+    },
+    [countryId, timeLimitSeconds, stopSpeech]
+  );
+
+  // If initial questions were empty, automatically fetch on mount
+  useEffect(() => {
+    if (activeQuestions.length === 0) {
+      fetchQuestionsFromApi(20);
+    }
+  }, [activeQuestions.length, fetchQuestionsFromApi]);
 
   // Countdown timer effect
   useEffect(() => {
@@ -87,13 +124,6 @@ export function QuizContainer({ config }: QuizContainerProps) {
   }, [isSubmitted, isPaused]);
 
   // Handle Speech Synthesis
-  const stopSpeech = useCallback(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-    setIsSpeaking(false);
-  }, []);
-
   const toggleSpeech = () => {
     if (isSpeaking) {
       stopSpeech();
@@ -105,7 +135,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
       return;
     }
 
-    const currentQ = questions[currentQuestionIndex];
+    const currentQ = activeQuestions[currentQuestionIndex];
     if (!currentQ) return;
 
     window.speechSynthesis.cancel();
@@ -116,7 +146,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
     const textToRead = `${currentQ.questionText}. ${optionsText}`;
 
     const utterance = new SpeechSynthesisUtterance(textToRead);
-    utterance.rate = 0.95; // Clear natural test cadence
+    utterance.rate = 0.95;
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
 
@@ -132,6 +162,8 @@ export function QuizContainer({ config }: QuizContainerProps) {
       }
     };
   }, []);
+
+  const totalQuestions = activeQuestions.length > 0 ? activeQuestions.length : (config.totalQuestions || 20);
 
   // Action handlers
   const handleSelectOption = (optionKey: 'A' | 'B' | 'C' | 'D') => {
@@ -188,44 +220,39 @@ export function QuizContainer({ config }: QuizContainerProps) {
 
   // Score calculations
   const answeredCount = Object.keys(answers).length;
-  const correctCount = questions.reduce((acc, q, idx) => {
+  const correctCount = activeQuestions.reduce((acc, q, idx) => {
     return answers[idx] === q.correctAnswer ? acc + 1 : acc;
   }, 0);
-  const scorePercent = Math.round((correctCount / totalQuestions) * 100);
-  const hasPassed = correctCount >= passingScore;
-  const timeSpentSeconds = timeLimitSeconds - remainingTime;
-  const timeSpentMinutes = Math.floor(timeSpentSeconds / 60);
-  const timeSpentRemainderSeconds = timeSpentSeconds % 60;
 
   // Persist score and navigate to results screen
   const handleSubmitExam = useCallback(() => {
     stopSpeech();
     const timeSpent = timeLimitSeconds - remainingTime;
-    const resultPayload = {
+    const resultPayload: ExamSubmissionPayload = {
       countryId,
+      questions: activeQuestions,
       answers,
       flagged: Array.from(flaggedQuestions),
       timeSpentSeconds: timeSpent,
-      correctCount,
-      totalQuestions,
       submittedAt: Date.now(),
     };
 
     if (typeof window !== 'undefined') {
       try {
         sessionStorage.setItem(`civicpass_result_${countryId}`, JSON.stringify(resultPayload));
+        window.dispatchEvent(new Event('civicpass_result_updated'));
       } catch (e) {
         console.warn('Could not save exam session', e);
       }
     }
 
     router.push(`/test/${countryId}/results`);
-  }, [stopSpeech, timeLimitSeconds, remainingTime, countryId, answers, flaggedQuestions, correctCount, totalQuestions, router]);
+  }, [stopSpeech, timeLimitSeconds, remainingTime, countryId, activeQuestions, answers, flaggedQuestions, router]);
 
-  const currentQuestion = questions[currentQuestionIndex] || questions[0];
+  const currentQuestion = activeQuestions[currentQuestionIndex] || activeQuestions[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900 pb-16">
+    <div className="exam-shell min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900 pb-16">
       {/* Top Navigation Bar / Exam Room Chrome */}
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 flex items-center justify-between">
@@ -236,7 +263,6 @@ export function QuizContainer({ config }: QuizContainerProps) {
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors"
               title="Return to CivicPass Landing Page"
             >
-              <ChevronLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Exit Exam</span>
             </Link>
 
@@ -244,7 +270,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
 
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                <ShieldCheck className="w-4 h-4 stroke-[2.2]" />
+                <span>CP</span>
               </div>
               <span className="font-extrabold text-slate-900 text-base tracking-tight">
                 Civic<span className="text-blue-600">Pass</span>
@@ -261,21 +287,21 @@ export function QuizContainer({ config }: QuizContainerProps) {
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-600 text-white shadow-xs">
               <span>1. Exam Simulation</span>
             </div>
-            <Link
-              href={`/test/${countryId}/results`}
-              className="px-3 py-1 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
-              title="View Results & Statutory Review"
-            >
-              2. Results &amp; Review
-            </Link>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-slate-500">
+              <span>2. Results &amp; Statutory Review</span>
+            </div>
           </nav>
 
-          {/* Center / Right: Automated Proctor Status & Reset */}
-          <div className="flex items-center gap-3">
-            <div className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Automated Proctor Active</span>
-            </div>
+          {/* Right: Quick Tools */}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsScratchpadOpen(true)}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200/70 border border-slate-200/80 px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
+              title="Open applicant notes scratchpad"
+            >
+              <span>Notes</span>
+            </button>
 
             <button
               type="button"
@@ -283,7 +309,6 @@ export function QuizContainer({ config }: QuizContainerProps) {
               className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors p-1.5 rounded-lg hover:bg-slate-100"
               title="Reset practice test session"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Restart</span>
             </button>
           </div>
@@ -291,7 +316,31 @@ export function QuizContainer({ config }: QuizContainerProps) {
       </header>
 
       {/* Main Test Room Grid Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+        {/* On-Demand Question API Banner */}
+        <div className="bg-white/80 backdrop-blur-xs border border-slate-200/80 rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+          <div className="flex items-center gap-2.5 text-xs text-slate-600">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>
+              Official Database: <strong>{totalBankCount.toLocaleString()}+ Questions</strong>
+            </span>
+            <span className="hidden sm:inline text-slate-300">|</span>
+            <span className="hidden sm:inline">
+              Active Simulation: <strong>{activeQuestions.length} Questions</strong> fetched on demand
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => fetchQuestionsFromApi(20)}
+            disabled={isLoadingApi}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100/80 border border-blue-200/70 transition-all cursor-pointer disabled:opacity-50"
+            title="Fetch a fresh randomized batch of 20 questions from the 1,000+ question bank"
+          >
+            <span>{isLoadingApi ? 'Fetching from API...' : '⚡ Randomize New 20 Questions'}</span>
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column (~68% width on desktop: col-span-12 lg:col-span-8) */}
           <section className="lg:col-span-8 space-y-6">
@@ -317,11 +366,19 @@ export function QuizContainer({ config }: QuizContainerProps) {
               onSubmitExam={handleSubmitExam}
             />
 
-            {/* Paused Mask Overlay if exam is paused */}
-            {isPaused ? (
+            {/* Loading Indicator when fetching questions from API */}
+            {isLoadingApi ? (
+              <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 shadow-sm">
+                <div className="w-10 h-10 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
+                <p className="text-sm font-semibold text-slate-700">
+                  Fetching 20 practice questions on demand from the {countryName} 1,000+ question bank...
+                </p>
+              </div>
+            ) : isPaused ? (
+              /* Paused Mask Overlay if exam is paused */
               <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center space-y-4 shadow-sm py-16">
-                <div className="w-14 h-14 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto ring-8 ring-blue-50/50">
-                  <Play className="w-6 h-6 translate-x-0.5 fill-blue-600" />
+                <div className="w-14 h-14 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto ring-8 ring-blue-50/50 font-bold text-xs">
+                  PAUSED
                 </div>
                 <h3 className="text-xl font-extrabold text-slate-900 tracking-tight">
                   Exam Timer Paused
@@ -333,14 +390,13 @@ export function QuizContainer({ config }: QuizContainerProps) {
                   <button
                     type="button"
                     onClick={() => setIsPaused(false)}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
+                    className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all hover:scale-[1.02]"
                   >
-                    <Play className="w-4 h-4 fill-white" />
                     <span>Resume Examination</span>
                   </button>
                 </div>
               </div>
-            ) : (
+            ) : currentQuestion ? (
               /* Active Question Card */
               <QuestionCard
                 question={currentQuestion}
@@ -356,7 +412,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
                 isLast={currentQuestionIndex === totalQuestions - 1}
                 onSubmitExam={handleSubmitExam}
               />
-            )}
+            ) : null}
           </section>
 
           {/* Right Column (~32% width on desktop: col-span-12 lg:col-span-4) */}
@@ -371,13 +427,15 @@ export function QuizContainer({ config }: QuizContainerProps) {
             />
 
             {/* 2. Source Dossier Card with Parchment Graphic */}
-            <SourceDossierCard
-              countryId={countryId}
-              countryName={countryName}
-              dossierTitle={dossierTitle}
-              dossierParchmentTitle={dossierParchmentTitle}
-              currentQuestion={currentQuestion}
-            />
+            {currentQuestion && (
+              <SourceDossierCard
+                countryId={countryId}
+                countryName={countryName}
+                dossierTitle={dossierTitle}
+                dossierParchmentTitle={dossierParchmentTitle}
+                currentQuestion={currentQuestion}
+              />
+            )}
 
             {/* 3. Test Benchmark Rules Card & Hotline */}
             <TestRulesCard
@@ -399,15 +457,15 @@ export function QuizContainer({ config }: QuizContainerProps) {
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                <Edit3 className="w-4 h-4 text-blue-600" />
                 <span>Applicant Scratchpad Notes</span>
               </div>
               <button
                 type="button"
                 onClick={() => setIsScratchpadOpen(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg text-lg leading-none"
+                aria-label="Close notes"
               >
-                <X className="w-5 h-5" />
+                &times;
               </button>
             </div>
 
@@ -434,7 +492,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
               <button
                 type="button"
                 onClick={() => setIsScratchpadOpen(false)}
-                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition-colors"
               >
                 Save &amp; Close
               </button>
@@ -442,163 +500,8 @@ export function QuizContainer({ config }: QuizContainerProps) {
           </div>
         </div>
       )}
-
-      {/* Submission & Score Summary Modal */}
-      {isSubmitted && !reviewMode && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 text-center animate-in zoom-in-95 duration-200">
-            {/* Pass/Fail Status Banner */}
-            <div className="space-y-3">
-              <div
-                className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto ring-8 ${
-                  hasPassed
-                    ? 'bg-emerald-50 text-emerald-600 ring-emerald-50'
-                    : 'bg-amber-50 text-amber-600 ring-amber-50'
-                }`}
-              >
-                {hasPassed ? (
-                  <CheckCircle2 className="w-8 h-8 stroke-[2.2]" />
-                ) : (
-                  <AlertTriangle className="w-8 h-8 stroke-[2.2]" />
-                )}
-              </div>
-
-              <div>
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                    hasPassed
-                      ? 'bg-emerald-100 text-emerald-800'
-                      : 'bg-amber-100 text-amber-900'
-                  }`}
-                >
-                  {hasPassed ? 'Official Benchmark Passed' : 'Benchmark Not Met'}
-                </span>
-
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2">
-                  {hasPassed
-                    ? 'Naturalization Ready!'
-                    : 'Additional Practice Recommended'}
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  {hasPassed
-                    ? `Congratulations! You scored above the ${passingPercentage}% threshold for ${countryName}.`
-                    : `You answered ${correctCount} of ${totalQuestions} correctly. You need ${passingScore} to pass the official examination.`}
-                </p>
-              </div>
-            </div>
-
-            {/* Score Grid Cards */}
-            <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-              <div className="space-y-1">
-                <div className="text-2xl font-black text-slate-900">{correctCount} / {totalQuestions}</div>
-                <div className="text-[11px] font-semibold text-slate-500">Correct Score</div>
-              </div>
-
-              <div className="space-y-1 border-x border-slate-200">
-                <div className="text-2xl font-black text-blue-600">{scorePercent}%</div>
-                <div className="text-[11px] font-semibold text-slate-500">Mastery Rate</div>
-              </div>
-
-              <div className="space-y-1">
-                <div className="text-2xl font-black text-slate-900">
-                  {timeSpentMinutes}:{String(timeSpentRemainderSeconds).padStart(2, '0')}
-                </div>
-                <div className="text-[11px] font-semibold text-slate-500">Time Taken</div>
-              </div>
-            </div>
-
-            {/* Detailed summary breakdown */}
-            <div className="text-left text-xs space-y-2 border-t border-slate-100 pt-4 text-slate-600">
-              <div className="flex justify-between">
-                <span>Total Questions in Pool:</span>
-                <span className="font-semibold text-slate-900">{totalQuestions}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Questions Answered:</span>
-                <span className="font-semibold text-slate-900">{answeredCount} of {totalQuestions}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Questions Flagged:</span>
-                <span className="font-semibold text-slate-900">{flaggedQuestions.size}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Required Benchmark to Pass:</span>
-                <span className="font-semibold text-emerald-700">
-                  {passingScore} Correct ({passingPercentage}%)
-                </span>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div className="space-y-2.5 pt-2">
-              <button
-                type="button"
-                onClick={handleSubmitExam}
-                className="w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>View Results &amp; Statutory Review</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <div className="grid grid-cols-2 gap-2.5">
-                <button
-                  type="button"
-                  onClick={handleResetExam}
-                  className="py-2.5 px-3 rounded-xl font-semibold text-xs text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Retake Test</span>
-                </button>
-
-                <Link
-                  href="/"
-                  className="py-2.5 px-3 rounded-xl font-semibold text-xs text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center gap-1.5"
-                >
-                  <span>Choose Another Exam</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Review Mode Banner when reviewing answers */}
-      {isSubmitted && reviewMode && (
-        <aside
-          aria-label="Review Mode Bar"
-          className="fixed bottom-0 inset-x-0 bg-slate-900 text-white border-t border-slate-800 p-3 z-40 shadow-xl"
-        >
-          <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2.5">
-              <span className="font-bold text-blue-400">Exam Review Mode Active:</span>
-              <span>
-                Score: <strong>{correctCount} / {totalQuestions} ({scorePercent}%)</strong> ·{' '}
-                {hasPassed ? 'PASSED' : 'NEEDS PRACTICE'}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setIsSubmitted(true)}
-                className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold"
-              >
-                View Score Card
-              </button>
-              <button
-                type="button"
-                onClick={handleResetExam}
-                className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-bold"
-              >
-                Retake Exam
-              </button>
-            </div>
-          </div>
-        </aside>
-      )}
     </div>
   );
 }
+
 export default QuizContainer;

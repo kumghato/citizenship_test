@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useMemo, useSyncExternalStore } from 'react';
-import { ExamResultData, ReviewQuestionItem } from '@/lib/resultsData';
+import React, { useState, useMemo, useEffect, useSyncExternalStore } from 'react';
+import Link from 'next/link';
+import { ExamResultData } from '@/lib/resultsData';
 import { getExamConfig } from '@/lib/quizData';
+import { evaluateExamResults, ExamSubmissionPayload } from '@/lib/evaluateExam';
 import { ResultsNavbar } from './ResultsNavbar';
 import { ResultsSummaryHero } from './ResultsSummaryHero';
 import { CivicDomainsCard } from './CivicDomainsCard';
@@ -17,11 +19,20 @@ interface ResultsClientViewProps {
 const subscribeStorage = (callback: () => void) => {
   if (typeof window === 'undefined') return () => {};
   window.addEventListener('storage', callback);
-  return () => window.removeEventListener('storage', callback);
+  window.addEventListener('civicpass_result_updated', callback);
+  return () => {
+    window.removeEventListener('storage', callback);
+    window.removeEventListener('civicpass_result_updated', callback);
+  };
 };
 
 export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
   const [activeReviewFilter, setActiveReviewFilter] = useState<FilterTab>('all');
+  const [clientMounted, setClientMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setClientMounted(true);
+  }, []);
 
   const getSnapshot = () => {
     if (typeof window === 'undefined') return null;
@@ -36,82 +47,27 @@ export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
     getServerSnapshot
   );
 
-  const result = useMemo<ExamResultData>(() => {
-    if (!sessionRaw) return initialResult;
-
-    try {
-      const parsed = JSON.parse(sessionRaw);
-      if (!parsed || !parsed.answers) return initialResult;
-
-      const examConfig = getExamConfig(initialResult.countryId);
-      if (!examConfig) return initialResult;
-
-      const answers: Record<number, string> = parsed.answers || {};
-      const flaggedArray: number[] = parsed.flagged || [];
-      const flaggedSet = new Set<number>(flaggedArray);
-      const timeSpentSec: number = parsed.timeSpentSeconds || 692; // default 11m 32s
-
-      const minutes = Math.floor(timeSpentSec / 60);
-      const seconds = timeSpentSec % 60;
-      const timeSpentFormatted = `${minutes}m ${String(seconds).padStart(2, '0')}s`;
-
-      const dynamicQuestions: ReviewQuestionItem[] = examConfig.questions.map((q, idx) => {
-        const userKey = (answers[idx] as 'A' | 'B' | 'C' | 'D') || null;
-        const userOpt = q.options.find((opt) => opt.key === userKey);
-        const officialOpt = q.options.find((opt) => opt.key === q.correctAnswer);
-        const isCorrect = userKey === q.correctAnswer;
-        const isFlagged = flaggedSet.has(idx);
-
-        const domainName = q.category.includes('Government')
-          ? 'American Government'
-          : q.category.includes('History')
-          ? 'American History'
-          : 'Integrated Civics';
-
-        return {
-          id: q.id,
-          questionNumber: idx + 1,
-          domain: domainName,
-          category: q.category,
-          categoryTrail: q.category.toUpperCase().replace('•', '•'),
-          questionText: q.questionText,
-          subtext: q.subtext,
-          userAnswerKey: userKey,
-          userAnswerText: userOpt ? userOpt.text : 'No Submission',
-          officialAnswerKey: q.correctAnswer,
-          officialAnswerText: officialOpt ? officialOpt.text : '',
-          isCorrect,
-          isFlagged,
-          statutoryReference: `Statutory Reference: ${q.statutoryStandard}, Question ${idx + 1}`,
-          whyCorrectContext:
-            q.statutoryGuidance.dossierNotes || q.statutoryGuidance.clue,
-          legalCitation: q.statutoryGuidance.legalCitation,
-          mnemonic: q.statutoryGuidance.mnemonic,
-        };
-      });
-
-      const correctCount = dynamicQuestions.filter((q) => q.isCorrect).length;
-      const incorrectCount = dynamicQuestions.length - correctCount;
-      const accuracyPercentage = Math.round((correctCount / dynamicQuestions.length) * 100);
-      const hasPassed = correctCount >= examConfig.passingScore;
-
-      if (Object.keys(answers).length > 0) {
-        return {
-          ...initialResult,
-          timeSpentFormatted,
-          correctCount,
-          incorrectCount,
-          flaggedCount: flaggedSet.size,
-          accuracyPercentage,
-          hasPassed,
-          questions: dynamicQuestions,
-        };
-      }
-    } catch (e) {
-      console.warn('Could not parse session quiz results:', e);
+  const { result, isFromLiveSession } = useMemo<{
+    result: ExamResultData;
+    isFromLiveSession: boolean;
+  }>(() => {
+    if (!sessionRaw) {
+      return { result: initialResult, isFromLiveSession: false };
     }
 
-    return initialResult;
+    try {
+      const parsed = JSON.parse(sessionRaw) as ExamSubmissionPayload;
+      if (!parsed || !parsed.answers) {
+        return { result: initialResult, isFromLiveSession: false };
+      }
+
+      const examConfig = getExamConfig(initialResult.countryId);
+      const evaluated = evaluateExamResults(parsed, examConfig);
+      return { result: evaluated, isFromLiveSession: true };
+    } catch (e) {
+      console.warn('Could not parse session quiz results:', e);
+      return { result: initialResult, isFromLiveSession: false };
+    }
   }, [sessionRaw, initialResult]);
 
   const handleReviewMissed = () => {
@@ -123,8 +79,8 @@ export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
-      {/* 1. Top Navbar Chrome with Active State Pill on "Results & Review" */}
+    <div className="results-shell min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
+      {/* 1. Top Navbar Chrome */}
       <ResultsNavbar
         countryId={result.countryId}
         countryName={result.countryName}
@@ -134,7 +90,48 @@ export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* 2. Results Summary Hero (Pass Certificate, Donut Chart, Metrics, CTAs) */}
+        {/* Dynamic Status Callout Banner */}
+        {clientMounted && (
+          isFromLiveSession ? (
+            <div className="bg-emerald-50/90 border border-emerald-200/90 text-emerald-950 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+              <div className="flex items-center gap-3">
+                <span className="text-xl">🎯</span>
+                <div className="text-xs sm:text-sm">
+                  <strong className="font-bold text-emerald-900">Personalized Dynamic Examination Results</strong>
+                  <p className="text-emerald-800/90 text-xs mt-0.5">
+                    Evaluated directly from your completed simulation of {result.totalQuestions} questions. Review your score, domain mastery, and statutory analysis below.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href={`/test/${result.countryId}`}
+                className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition-colors shadow-2xs"
+              >
+                <span>Retake Fresh Simulation</span>
+              </Link>
+            </div>
+          ) : (
+            <div className="bg-amber-50/90 border border-amber-200/90 text-amber-950 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+              <div className="flex items-center gap-3">
+                <span className="text-xl">📋</span>
+                <div className="text-xs sm:text-sm">
+                  <strong className="font-bold text-amber-900">Sample Diagnostic Preview</strong>
+                  <p className="text-amber-800/90 text-xs mt-0.5">
+                    Showing a sample results rubric for {result.countryName}. Take an official practice test to generate your own personalized, dynamic score report.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href={`/test/${result.countryId}`}
+                className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-2xs"
+              >
+                <span>Launch Practice Test</span>
+              </Link>
+            </div>
+          )
+        )}
+
+        {/* 2. Results Summary Hero (Pass/Fail Certificate, Donut Chart, Metrics, CTAs) */}
         <ResultsSummaryHero
           result={result}
           onReviewMissed={handleReviewMissed}
@@ -155,32 +152,20 @@ export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
           />
         </div>
 
-        {/* 4. Statutory Review Section (Client Filtering: All, Incorrect, Correct, Flagged) */}
+        {/* 4. Statutory Review Section */}
         <StatutoryReviewSection
           questions={result.questions}
-          countryName={result.countryId === 'us' ? 'USCIS' : result.countryName}
+          countryName={result.countryName}
           initialFilter={activeReviewFilter}
         />
 
-        {/* 5. Next Action Grid (Practice Missed, Next Mock #5, Cross-Commonwealth Track) */}
+        {/* 5. Next Actions Grid */}
         <NextActionGrid
           countryId={result.countryId}
           incorrectCount={result.incorrectCount}
           onPracticeMissed={handleReviewMissed}
         />
       </main>
-
-      {/* Subdued Footer Note */}
-      <footer className="border-t border-slate-200/80 bg-white py-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 space-y-2">
-          <p>
-            CivicPass™ Official Practice Examination Engine · Verified against {result.officialBody} Statutory Standards.
-          </p>
-          <p className="text-[11px] text-slate-400">
-            For preparation purposes only. All marks and official rubrics adhere to Section 312 of the Immigration and Nationality Act.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

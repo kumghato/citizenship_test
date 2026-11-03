@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { BookOpen, ExternalLink, Scroll, Award, Sparkles } from 'lucide-react';
 import { QuizQuestion } from '@/lib/quizData';
 
 interface SourceDossierCardProps {
@@ -34,7 +33,6 @@ export function SourceDossierCard({
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <BookOpen className="w-4 h-4 text-blue-600" />
           <div>
             <h3 className="text-sm font-bold text-slate-900 tracking-tight">
               {dossierTitle}
@@ -52,14 +50,8 @@ export function SourceDossierCard({
 
       {/* Parchment Thumbnail Graphic Box */}
       <div className="relative rounded-xl overflow-hidden border border-amber-200/80 bg-gradient-to-b from-amber-50/70 via-amber-50/40 to-white p-4 shadow-xs">
-        {/* Subtle decorative watermark */}
-        <div className="absolute top-2 right-2 opacity-15 text-amber-800 pointer-events-none">
-          <Scroll className="w-16 h-16" />
-        </div>
-
         <div className="relative z-10 space-y-2">
           <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-900 uppercase tracking-wider">
-            <Award className="w-3.5 h-3.5 text-amber-700" />
             <span>{dossierParchmentTitle}</span>
           </div>
 
@@ -72,7 +64,6 @@ export function SourceDossierCard({
       {/* Authoritative Study Notes for the active question */}
       <div className="space-y-2 text-xs">
         <div className="font-semibold text-slate-800 flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
           <span>Statutory Authority &amp; Historical Context</span>
         </div>
 
@@ -90,7 +81,6 @@ export function SourceDossierCard({
           className="text-xs font-semibold text-blue-600 hover:text-blue-800 inline-flex items-center gap-1.5 transition-colors group"
         >
           <span>{portalInfo.label}</span>
-          <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
         </a>
       </div>
     </div>

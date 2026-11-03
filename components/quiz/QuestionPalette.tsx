@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Check, Flag } from 'lucide-react';
 
 interface QuestionPaletteProps {
   totalQuestions: number;
@@ -51,7 +50,7 @@ export function QuestionPalette({
 
           // Tile styles according to specs:
           // Active: Solid Blue with white text
-          // Answered: Green filled with checkmark
+          // Answered: Green filled
           // Unanswered: White with gray border
           let tileStyle =
             'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50';
@@ -81,13 +80,6 @@ export function QuestionPalette({
               {/* Question Number */}
               <span>{index + 1}</span>
 
-              {/* Answered checkmark mini-badge if not current active */}
-              {isAnswered && !isCurrent && (
-                <span className="absolute bottom-1 right-1 text-emerald-100">
-                  <Check className="w-2.5 h-2.5 stroke-[3]" />
-                </span>
-              )}
-
               {/* Amber Dot Indicator on top-right if Flagged */}
               {isFlagged && (
                 <span
@@ -105,9 +97,7 @@ export function QuestionPalette({
       {/* Status Legend Beneath Grid */}
       <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600">
         <div className="flex items-center gap-2">
-          <span className="w-3.5 h-3.5 rounded-md bg-emerald-700 flex items-center justify-center text-white shrink-0">
-            <Check className="w-2.5 h-2.5 stroke-[3]" />
-          </span>
+          <span className="w-3.5 h-3.5 rounded-md bg-emerald-700 shrink-0" />
           <span>Answered ({answeredCount})</span>
         </div>
 
@@ -123,7 +113,7 @@ export function QuestionPalette({
 
         <div className="flex items-center gap-2">
           <span className="w-3.5 h-3.5 rounded-full bg-amber-400 ring-1 ring-amber-300 flex items-center justify-center shrink-0">
-            <Flag className="w-2 h-2 text-amber-900 fill-amber-900" />
+            <span className="w-1 h-1 rounded-full bg-amber-800" />
           </span>
           <span>Flagged ({flaggedCount})</span>
         </div>
