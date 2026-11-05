@@ -95,10 +95,12 @@ export async function queryQuestions(
   const allQuestions = config.questions || [];
   let filtered = [...allQuestions];
 
-  // Filter by specific question IDs if provided
+  // Filter by specific question IDs if provided (preserving exact order requested)
   if (params.ids && params.ids.length > 0) {
-    const idSet = new Set(params.ids);
-    filtered = filtered.filter((q) => idSet.has(q.id));
+    const qMap = new Map(allQuestions.map((q) => [q.id, q]));
+    filtered = params.ids
+      .map((id) => qMap.get(id))
+      .filter((q): q is QuizQuestion => q !== undefined);
   }
 
   // Filter by category if provided
@@ -147,13 +149,22 @@ export async function queryQuestions(
   }
 
   // Determine limit and pagination
-  const limit = Math.min(Math.max(params.limit ?? config.totalQuestions ?? 20, 1), 100);
+  const defaultLimit =
+    params.ids && params.ids.length > 0
+      ? filtered.length
+      : (config.totalQuestions ?? 20);
+  const limit = Math.min(Math.max(params.limit ?? defaultLimit, 1), 100);
   const totalPages = Math.max(Math.ceil(totalAvailable / limit), 1);
   const page = Math.min(Math.max(params.page ?? 1, 1), totalPages);
 
   let resultQuestions: QuizQuestion[] = [];
 
-  if (params.random) {
+  // When specific IDs are requested without explicit random flag, maintain exact order
+  const shouldRandomize = params.random !== undefined
+    ? params.random
+    : !(params.ids && params.ids.length > 0);
+
+  if (shouldRandomize) {
     // Fisher-Yates shuffle sample without mutating original
     const shuffled = [...filtered];
     for (let i = shuffled.length - 1; i > 0; i--) {

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { clearAllExamStorage } from '@/lib/examStorage';
 
 interface NextActionGridProps {
   countryId?: string;
@@ -115,7 +116,8 @@ export function NextActionGrid({
           <div>
             <Link
               href={`/test/${countryId}`}
-              className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200/90 flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+              onClick={() => clearAllExamStorage()}
+              className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200/90 flex items-center justify-center gap-2 transition-all hover:scale-[1.01] cursor-pointer"
             >
               <span>Try Mock Exam #5</span>
             </Link>
@@ -147,7 +149,8 @@ export function NextActionGrid({
                 <Link
                   key={track.id}
                   href={`/test/${track.id}/results`}
-                  className="flex-1 min-w-[70px] inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 transition-colors"
+                  onClick={() => clearAllExamStorage()}
+                  className="flex-1 min-w-[70px] inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 transition-colors cursor-pointer"
                   title={`${track.name} (${track.exam})`}
                 >
                   <span>{track.flag}</span>

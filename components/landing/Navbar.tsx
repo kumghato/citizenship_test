@@ -27,7 +27,8 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
   const [menuOpen, setMenuOpen] = useState(false);
   const [countryOpen, setCountryOpen] = useState(false);
   const [currentCountry, setCurrentCountry] = useState(selectedCountry);
-  const activeCountry = COUNTRIES.find((country) => country.id === currentCountry) ?? COUNTRIES[0];
+  const activeCountry =
+    COUNTRIES.find((country) => country.id === currentCountry) ?? COUNTRIES[0];
 
   const selectCountry = (id: string) => {
     setCurrentCountry(id);
@@ -37,10 +38,9 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
   };
 
   const links = [
-    ['Tracks', '#tracks'],
-    ['How it works', '#how-it-works'],
-    ['Practice', '#practice'],
-    ['FAQ', '#faq'],
+    ['Exam Tracks', '/#tracks'],
+    ['Study Guides', '/#exam-guides'],
+    ['FAQ', '/#faq'],
   ];
 
   return (
@@ -48,11 +48,17 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
       <div className="container site-header__inner">
         <Link href="/" className="brand" aria-label="CivicPass home">
           <span className="brand__mark">CP</span>
-          <span className="brand__wordmark">Civic<em>Pass</em></span>
+          <span className="brand__wordmark">
+            Civic<em>Pass</em>
+          </span>
         </Link>
 
         <nav className="site-nav" aria-label="Main navigation">
-          {links.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+          {links.map(([label, href]) => (
+            <Link key={href} href={href}>
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="site-header__actions">
@@ -62,12 +68,17 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
               className="button-secondary country-menu__button"
               aria-expanded={countryOpen}
               onClick={() => setCountryOpen((open) => !open)}
+              aria-label={`Current citizenship track: ${activeCountry.name}`}
             >
               <span>{activeCountry.flag}</span>
               <span className="country-menu__name">{activeCountry.shortName}</span>
             </button>
             {countryOpen && (
-              <div className="country-menu__popover" role="listbox" aria-label="Choose a citizenship track">
+              <div
+                className="country-menu__popover"
+                role="listbox"
+                aria-label="Choose a citizenship track"
+              >
                 <span className="country-menu__label">Choose a track</span>
                 {COUNTRIES.map((country) => (
                   <button
@@ -80,14 +91,21 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
                   >
                     <span className="country-menu__option-text">
                       <span>{country.flag}</span>
-                      <span><strong>{country.name}</strong><small>{country.exam}</small></span>
+                      <span>
+                        <strong>{country.name}</strong>
+                        <small>{country.exam}</small>
+                      </span>
                     </span>
                   </button>
                 ))}
               </div>
             )}
           </div>
-          <Link href={`/test/${currentCountry}`} className="button-primary header-cta">
+          <Link
+            href={`/test/${currentCountry}`}
+            className="button-primary header-cta"
+            title={`Start ${activeCountry.name} citizenship practice`}
+          >
             Start practice
           </Link>
           <button
@@ -103,8 +121,17 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
       </div>
 
       <div className="container mobile-nav" data-open={menuOpen}>
-        {links.map(([label, href]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
-        <Link href={`/test/${currentCountry}`} className="button-primary" style={{ marginTop: 14 }} onClick={() => setMenuOpen(false)}>
+        {links.map(([label, href]) => (
+          <Link key={href} href={href} onClick={() => setMenuOpen(false)}>
+            {label}
+          </Link>
+        ))}
+        <Link
+          href={`/test/${currentCountry}`}
+          className="button-primary"
+          style={{ marginTop: 14 }}
+          onClick={() => setMenuOpen(false)}
+        >
           Start {activeCountry.name} practice
         </Link>
       </div>

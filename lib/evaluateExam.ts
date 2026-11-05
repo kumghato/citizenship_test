@@ -4,7 +4,7 @@ import { ExamResultData, ReviewQuestionItem, DomainPerformance } from './results
 export interface ExamSubmissionPayload {
   countryId: SupportedCountry;
   questions: QuizQuestion[];
-  answers: Record<number, string>;
+  answers: Record<number | string, string | null>;
   flagged?: number[];
   timeSpentSeconds?: number;
   submittedAt?: number;
@@ -90,11 +90,12 @@ export function evaluateExamResults(
 
   // Build dynamic review question items
   const dynamicQuestions: ReviewQuestionItem[] = questions.map((q, idx) => {
-    const userKey = (answers[idx] as 'A' | 'B' | 'C' | 'D') || null;
+    const rawKey = answers[q.id] ?? answers[idx] ?? answers[String(q.id)] ?? answers[String(idx)] ?? null;
+    const userKey = (rawKey as 'A' | 'B' | 'C' | 'D' | null) || null;
     const userOpt = q.options.find((opt) => opt.key === userKey);
     const officialOpt = q.options.find((opt) => opt.key === q.correctAnswer);
-    const isCorrect = userKey === q.correctAnswer;
-    const isFlagged = flaggedSet.has(idx);
+    const isCorrect = userKey !== null && userKey === q.correctAnswer;
+    const isFlagged = flaggedSet.has(q.id) || flaggedSet.has(idx);
 
     const domainInfo = getDomainForCategory(countryId, q.category);
 

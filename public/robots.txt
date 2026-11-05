@@ -1,0 +1,7 @@
+# Robots.txt for CivicPass (https://civicpass.org)
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://civicpass.org/sitemap.xml

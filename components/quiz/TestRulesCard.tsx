@@ -60,8 +60,8 @@ export function TestRulesCard({
 
           <div className="flex items-start gap-2.5">
             <div>
-              <span className="font-bold text-slate-800">Audio Voice Assistance:</span>{' '}
-              Official voice prompt synthesis available on every question to practice oral interview cadence.
+              <span className="font-bold text-slate-800">Timed Exam Simulation:</span>{' '}
+              Real-time countdown timer tracking adherence to official immigration exam constraints.
             </div>
           </div>
         </div>
@@ -135,8 +135,8 @@ export function TestRulesCard({
                 <div className="font-semibold text-slate-800">Proctoring Best Practices:</div>
                 <ul className="list-disc pl-4 space-y-1 text-slate-600">
                   <li>Treat each question as if speaking to an immigration examiner.</li>
-                  <li>Click &quot;Listen Prompt&quot; to practice listening comprehension.</li>
                   <li>Flag difficult questions and revisit them before final submission.</li>
+                  <li>Ensure all questions are answered before your countdown timer expires.</li>
                 </ul>
               </div>
             </div>

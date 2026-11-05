@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { SupportedCountry } from '@/lib/quizData';
+import { clearAllExamStorage } from '@/lib/examStorage';
 
 interface ResultsNavbarProps {
   countryId: SupportedCountry;
@@ -33,15 +34,21 @@ export function ResultsNavbar({
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors"
-            title="Return to CivicPass Home"
+            onClick={() => clearAllExamStorage()}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+            title="Return to CivicPass Home and clear storage"
           >
             <span className="hidden sm:inline">Exit to Home</span>
           </Link>
 
           <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link
+            href="/"
+            onClick={() => clearAllExamStorage()}
+            className="flex items-center gap-2 group cursor-pointer"
+            title="Return to Home (clears exam storage)"
+          >
             <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
               <span>CP</span>
             </div>
@@ -70,7 +77,10 @@ export function ResultsNavbar({
                   <Link
                     key={c.id}
                     href={`/test/${c.id}/results`}
-                    onClick={() => setDropdownOpen(false)}
+                    onClick={() => {
+                      clearAllExamStorage();
+                      setDropdownOpen(false);
+                    }}
                     className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
                       c.id === countryId
                         ? 'bg-blue-50 text-blue-700'
@@ -98,8 +108,9 @@ export function ResultsNavbar({
         >
           <Link
             href={`/test/${countryId}`}
-            className="px-3 py-1 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors hidden sm:inline-block"
-            title="Return to Exam Simulator"
+            onClick={() => clearAllExamStorage()}
+            className="px-3 py-1 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors hidden sm:inline-block cursor-pointer"
+            title="Return to Exam Simulator and start fresh random test"
           >
             1. Exam Simulation
           </Link>
@@ -124,8 +135,9 @@ export function ResultsNavbar({
 
           <Link
             href={`/test/${countryId}`}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors"
-            title="Retake practice examination"
+            onClick={() => clearAllExamStorage()}
+            className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+            title="Retake practice examination with fresh random questions"
           >
             <span className="hidden sm:inline">Retake</span>
           </Link>

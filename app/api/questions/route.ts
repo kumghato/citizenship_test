@@ -24,12 +24,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const limit = limitParam ? parseInt(limitParam, 10) : undefined;
-    const page = pageParam ? parseInt(pageParam, 10) : undefined;
-    // Default random to true for practice test generation, unless explicitly specified as 'false'
-    const random = randomParam !== null ? randomParam.toLowerCase() === 'true' : true;
-    const metaOnly = metaOnlyParam?.toLowerCase() === 'true';
-
     let ids: number[] | undefined;
     if (idsParam) {
       ids = idsParam
@@ -37,6 +31,12 @@ export async function GET(request: NextRequest) {
         .map((id) => parseInt(id.trim(), 10))
         .filter((id) => !isNaN(id));
     }
+
+    const limit = limitParam ? parseInt(limitParam, 10) : undefined;
+    const page = pageParam ? parseInt(pageParam, 10) : undefined;
+    // Default random to true for practice test generation, unless ids are provided or explicitly specified
+    const random = randomParam !== null ? randomParam.toLowerCase() === 'true' : (ids && ids.length > 0 ? false : true);
+    const metaOnly = metaOnlyParam?.toLowerCase() === 'true';
 
     const queryParams: QuestionQueryParams = {
       country: normalizedCountry,
@@ -65,8 +65,9 @@ export async function GET(request: NextRequest) {
         'Cache-Control': 'no-store, max-age=0',
       },
     });
-  } catch (error: any) {
-    if (error?.digest?.startsWith('NEXT_')) {
+  } catch (error: unknown) {
+    const err = error as { digest?: string };
+    if (err?.digest?.startsWith('NEXT_')) {
       throw error;
     }
     console.error('Questions API error:', error);

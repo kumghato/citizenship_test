@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Clock } from 'lucide-react';
 
 interface QuizHeaderProps {
   examTitle: string;
@@ -17,8 +18,6 @@ interface QuizHeaderProps {
   isPaused: boolean;
   onTogglePause: () => void;
   flaggedCount: number;
-  isSpeaking: boolean;
-  onToggleSpeech: () => void;
   onOpenScratchpad: () => void;
   onSubmitExam: () => void;
 }
@@ -38,8 +37,6 @@ export function QuizHeader({
   isPaused,
   onTogglePause,
   flaggedCount,
-  isSpeaking,
-  onToggleSpeech,
   onOpenScratchpad,
   onSubmitExam,
 }: QuizHeaderProps) {
@@ -98,7 +95,7 @@ export function QuizHeader({
             }`}
             title="Remaining Exam Time"
           >
-            {/* SVG Circular Progress Meter */}
+            {/* SVG Circular Progress Meter with Clock Icon */}
             <div className="relative w-8 h-8 flex items-center justify-center">
               <svg className="w-8 h-8 -rotate-90 transform" viewBox="0 0 36 36">
                 <circle
@@ -125,6 +122,16 @@ export function QuizHeader({
                   strokeLinecap="round"
                 />
               </svg>
+              <Clock
+                className={`w-3.5 h-3.5 absolute ${
+                  isUrgent
+                    ? 'text-red-600'
+                    : isWarning
+                    ? 'text-amber-500'
+                    : 'text-blue-600'
+                }`}
+                aria-hidden="true"
+              />
             </div>
 
             <div className="text-left font-mono">
@@ -168,23 +175,6 @@ export function QuizHeader({
             <span>{flaggedCount} Flagged</span>
           </div>
 
-          {/* Listen Prompt Button (TTS) */}
-          <button
-            type="button"
-            onClick={onToggleSpeech}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
-              isSpeaking
-                ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-400 shadow-sm'
-                : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200/90'
-            }`}
-            title="Read question prompt aloud (Oral Interview Simulator)"
-          >
-            {isSpeaking ? (
-              <span>Stop Voice</span>
-            ) : (
-              <span>Listen Prompt</span>
-            )}
-          </button>
 
           {/* Scratchpad Button */}
           <button

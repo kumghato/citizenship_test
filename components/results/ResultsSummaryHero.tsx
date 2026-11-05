@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ExamResultData } from '@/lib/resultsData';
+import { clearAllExamStorage } from '@/lib/examStorage';
 
 interface ResultsSummaryHeroProps {
   result: ExamResultData;
@@ -176,7 +177,8 @@ export function ResultsSummaryHero({
 
             <Link
               href={`/test/${countryId}`}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors"
+              onClick={() => clearAllExamStorage()}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors cursor-pointer"
               title="Reset timer and attempt a fresh exam set"
             >
               <span>Retake Test (New Set)</span>

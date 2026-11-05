@@ -4,8 +4,11 @@ import { notFound } from 'next/navigation';
 import {
   getExamConfig,
   SUPPORTED_COUNTRIES,
+  SupportedCountry,
 } from '@/lib/quizData';
+import { COUNTRY_SEO_DATA } from '@/lib/seoData';
 import { QuizContainer } from '@/components/quiz/QuizContainer';
+import { TrackSeoContent } from '@/components/seo/TrackSeoContent';
 
 interface QuizPageProps {
   params: Promise<{ country: string }>;
@@ -21,30 +24,64 @@ export async function generateMetadata({
   params,
 }: QuizPageProps): Promise<Metadata> {
   const { country } = await params;
-  const config = getExamConfig(country);
+  const normalizedCountry = country.toLowerCase() as SupportedCountry;
+  const config = getExamConfig(normalizedCountry);
+  const seo = COUNTRY_SEO_DATA[normalizedCountry];
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
 
-  if (!config) {
+  if (!config || !seo) {
     return {
       title: 'Examination Not Found — CivicPass',
       description: 'The requested citizenship examination could not be found.',
     };
   }
 
+  const canonicalUrl = `${siteUrl}/test/${normalizedCountry}`;
+
   return {
-    title: `${config.examTitle} (${config.countryName}) — CivicPass`,
-    description: `Official practice test for ${config.countryName} citizenship (${config.officialBody}). Practice ${config.totalQuestions} questions with real-time scoring, statutory legal guidance, and oral simulator.`,
+    title: seo.metaTitle,
+    description: seo.metaDescription,
+    keywords: seo.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: 'website',
+      url: canonicalUrl,
+      title: seo.metaTitle,
+      description: seo.metaDescription,
+      siteName: 'CivicPass',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.metaTitle,
+      description: seo.metaDescription,
+    },
   };
 }
 
 async function QuizContent({ params }: QuizPageProps) {
   const { country } = await params;
-  const config = getExamConfig(country);
+  const normalizedCountry = country.toLowerCase();
+  const config = getExamConfig(normalizedCountry);
 
   if (!config) {
     notFound();
   }
 
-  return <QuizContainer config={config} />;
+  // Pass exam configuration metadata only; questions are always prepared
+  // dynamically and fetched randomly on demand via API call when exam is selected.
+  const examConfig = {
+    ...config,
+    questions: [],
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <QuizContainer config={examConfig} />
+      <TrackSeoContent country={normalizedCountry} />
+    </div>
+  );
 }
 
 function QuizLoadingFallback() {

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { QuizQuestion } from '@/lib/quizData';
 
 interface QuestionCardProps {
@@ -192,9 +193,10 @@ export function QuestionCard({
           className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
             isFirst
               ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200/60'
-              : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 shadow-xs'
+              : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 shadow-xs cursor-pointer'
           }`}
         >
+          <ChevronLeft className="w-4 h-4 shrink-0" aria-hidden="true" />
           <span>Previous Question</span>
         </button>
 
@@ -202,7 +204,7 @@ export function QuestionCard({
         <button
           type="button"
           onClick={onToggleFlag}
-          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
             isFlagged
               ? 'text-amber-800 bg-amber-50 border border-amber-300'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent'
@@ -217,7 +219,7 @@ export function QuestionCard({
           <button
             type="button"
             onClick={onSubmitExam}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             <span>Review & Submit Exam</span>
           </button>
@@ -225,9 +227,10 @@ export function QuestionCard({
           <button
             type="button"
             onClick={onNext}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             <span>Next Question</span>
+            <ChevronRight className="w-4 h-4 shrink-0" aria-hidden="true" />
           </button>
         )}
       </div>
