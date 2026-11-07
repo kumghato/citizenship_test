@@ -106,7 +106,7 @@ export default function LandingPage() {
         <section className="hero" aria-label="Introduction to Citizenship Test Practice">
           <div className="container hero-grid">
             <div className="hero-copy">
-              <span className="eyebrow">Official Citizenship Exam Preparation</span>
+          
               <h1 className="display-title">
                 Study with a plan. <span>Pass USCIS, Life in the UK, Discover Canada & Our Common Bond.</span>
               </h1>

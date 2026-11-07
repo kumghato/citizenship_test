@@ -4,6 +4,11 @@ import { useState, useTransition } from 'react';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import useWeb3forms from '@web3forms/react';
 
+// Web3Forms access keys are UUIDs. Anything else (empty value, the
+// `your_access_key_here` placeholder, a truncated key) is rejected by the API
+// with an opaque 400, so validate it up front and fail with a useful message.
+const ACCESS_KEY_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,10 +24,11 @@ export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const accessKey =
-    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
-    process.env.WEB3FORMS_ACCESS_KEY ||
-    '';
+  // NEXT_PUBLIC_* values are inlined into the client bundle at build time, so a
+  // key added to .env while the dev server is already running is not picked up
+  // until the server (or build) is restarted.
+  const accessKey = (process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? '').trim();
+  const hasValidAccessKey = ACCESS_KEY_PATTERN.test(accessKey);
 
   const { submit } = useWeb3forms({
     access_key: accessKey,
@@ -65,9 +71,11 @@ export function ContactForm() {
       return;
     }
 
-    if (!accessKey) {
+    if (!hasValidAccessKey) {
       setStatus('error');
-      setErrorMessage('Web3Forms access key is missing. Please configure NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in your .env file.');
+      setErrorMessage(
+        'The contact form is not configured correctly: NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY must be a valid Web3Forms UUID. Update it in your .env file, then restart the dev server (or rebuild) so the new value reaches the browser.'
+      );
       return;
     }
 
