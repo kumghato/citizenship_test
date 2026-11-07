@@ -34,11 +34,17 @@ yarn-error.log*
 .env*
 !.env.example
 .env.local*
+.dev.vars
 
 # vercel
 .vercel
+
+# cloudflare / opennext
+.open-next/
+.wrangler/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 .env.example
+wrangler.jsonc

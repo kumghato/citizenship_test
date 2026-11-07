@@ -1,6 +1,15 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { QuizQuestion, CountryExamConfig, SupportedCountry, SUPPORTED_COUNTRIES } from './quizData';
+import usData from '@/data/questions/us.json';
+import ukData from '@/data/questions/uk.json';
+import caData from '@/data/questions/ca.json';
+import auData from '@/data/questions/au.json';
+
+const COUNTRY_DATA_MAP: Record<string, CountryExamConfig> = {
+  us: usData as unknown as CountryExamConfig,
+  uk: ukData as unknown as CountryExamConfig,
+  ca: caData as unknown as CountryExamConfig,
+  au: auData as unknown as CountryExamConfig,
+};
 
 export interface QuestionQueryParams {
   country?: string;
@@ -43,9 +52,6 @@ export interface QuestionApiResponse {
   questions: QuizQuestion[];
 }
 
-// In-memory cache for parsed country files to ensure sub-millisecond response times
-const countryCache = new Map<string, CountryExamConfig>();
-
 /**
  * Loads a country's full question dataset from its dedicated JSON file on the server.
  */
@@ -57,26 +63,8 @@ export async function loadCountryQuestionsFromFile(
     return null;
   }
 
-  const cached = countryCache.get(normalized);
-  if (cached) {
-    return cached;
-  }
-
-  try {
-    const filePath = path.join(
-      process.cwd(),
-      'data',
-      'questions',
-      `${normalized}.json`
-    );
-    const content = await fs.readFile(filePath, 'utf-8');
-    const parsed = JSON.parse(content) as CountryExamConfig;
-    countryCache.set(normalized, parsed);
-    return parsed;
-  } catch (error) {
-    console.error(`Error loading questions file for country ${normalized}:`, error);
-    return null;
-  }
+  const data = COUNTRY_DATA_MAP[normalized];
+  return data || null;
 }
 
 /**

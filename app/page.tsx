@@ -115,7 +115,7 @@ export default function LandingPage() {
               </p>
               <div className="hero-actions">
                 <Link href="/test/us" className="button-primary" title="Start free USCIS civics practice">
-                  Start USCIS practice
+                  Start practice
                 </Link>
                 <a href="#tracks" className="button-secondary" title="Explore all 4 citizenship exam tracks">
                   Explore exam tracks

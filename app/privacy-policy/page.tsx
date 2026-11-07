@@ -2,18 +2,21 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '@/components/landing/Navbar';
 import { Footer } from '@/components/landing/Footer';
-import { ShieldCheck, Lock, EyeOff, Server } from 'lucide-react';
+import { ShieldCheck, Lock, CreditCard, Cpu } from 'lucide-react';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
 const pageUrl = `${siteUrl}/privacy-policy`;
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Data Protection & Privacy-First Architecture',
+  title: 'Privacy Policy — No Credit Cards, No Sensitive Data, 100% Client-Side | CivicPass',
   description:
-    'Read the CivicPass Privacy Policy. Learn how we handle your data with a privacy-first approach: no forced account creation, zero commercial ad tracking, local device test storage, and strict GDPR / CCPA compliance.',
+    'Read the CivicPass Privacy Policy. Everything is client side: we do not collect credit card details, we never ask for sensitive personal data or immigration records, and all test progress remains on your local device.',
   keywords: [
     'CivicPass privacy policy',
     'citizenship test privacy',
+    'no credit card required',
+    'no sensitive personal data',
+    'client side citizenship test',
     'educational software data protection',
     'GDPR compliance citizenship test',
     'CCPA privacy notice',
@@ -26,13 +29,14 @@ export const metadata: Metadata = {
     url: pageUrl,
     title: 'Privacy Policy — CivicPass Citizenship Test Practice',
     description:
-      'We believe preparing for your citizenship exam should be private. Learn how CivicPass protects user data with local-first progress storage and no forced registration.',
+      'Preparing for your citizenship exam should be private. Everything is client side: zero credit cards collected, no sensitive personal data asked, and local-first progress storage.',
     siteName: 'CivicPass',
   },
   twitter: {
     card: 'summary',
     title: 'Privacy Policy — CivicPass',
-    description: 'Privacy-first citizenship test preparation. Learn how your data is protected.',
+    description:
+      'Everything is client side: no credit cards, no sensitive personal data, and 100% client-side citizenship test rehearsal.',
   },
   robots: {
     index: true,
@@ -68,7 +72,7 @@ export default function PrivacyPolicyPage() {
         url: pageUrl,
         name: 'Privacy Policy — CivicPass',
         description:
-          'Official Privacy Policy and data protection disclosures for the CivicPass citizenship examination preparation platform.',
+          'Official Privacy Policy and client-side data protection disclosures for the CivicPass citizenship examination preparation platform.',
         publisher: {
           '@type': 'Organization',
           name: 'CivicPass',
@@ -103,10 +107,10 @@ export default function PrivacyPolicyPage() {
               </ol>
             </nav>
 
-            <span className="eyebrow">Data Protection &amp; Privacy-First Architecture</span>
+            <span className="eyebrow">100% Client-Side Architecture &amp; Data Protection</span>
             <h1 className="content-hero__title">CivicPass Privacy Policy</h1>
             <p className="content-hero__lead">
-              We believe preparing for one of the most important exams of your life should never require compromising your personal privacy. Here is a clear, transparent explanation of how CivicPass collects, protects, and handles your information.
+              We believe preparing for your citizenship exam should be private, secure, and completely barrier-free. CivicPass is built on a 100% client-side architecture: <strong>we do not collect credit card details</strong>, <strong>we never ask for sensitive personal data</strong>, and all exam simulations, answers, and scores run strictly on your device.
             </p>
 
             <div className="content-meta-bar">
@@ -114,7 +118,7 @@ export default function PrivacyPolicyPage() {
                 <ShieldCheck size={13} />
                 Effective Date: November 2026
               </span>
-              <span>Version 2.4</span>
+              <span>Version 2.5</span>
               <span>•</span>
               <span>Applicable to USCIS, Life in the UK, Discover Canada &amp; Our Common Bond tracks</span>
             </div>
@@ -128,158 +132,180 @@ export default function PrivacyPolicyPage() {
             <div className="stat-pills-row">
               <div className="stat-pill">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent)', marginBottom: 6 }}>
+                  <Cpu size={16} />
+                  <strong>100% Client-Side</strong>
+                </div>
+                <span>All test simulations, timer pacing, answers, and score evaluations run entirely in your browser.</span>
+              </div>
+
+              <div className="stat-pill">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent)', marginBottom: 6 }}>
+                  <CreditCard size={16} />
+                  <strong>No Credit Cards</strong>
+                </div>
+                <span>CivicPass is 100% free. We never ask for or collect credit card details, payment methods, or billing information.</span>
+              </div>
+
+              <div className="stat-pill">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent)', marginBottom: 6 }}>
                   <Lock size={16} />
-                  <strong>Zero Forced Signups</strong>
+                  <strong>No Sensitive Data</strong>
                 </div>
-                <span>Take full timed mock tests without having to enter an email, password, or name.</span>
-              </div>
-
-              <div className="stat-pill">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent)', marginBottom: 6 }}>
-                  <EyeOff size={16} />
-                  <strong>Local-First Storage</strong>
-                </div>
-                <span>Your test answers and performance history stay stored in your browser&apos;s local storage.</span>
-              </div>
-
-              <div className="stat-pill">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent)', marginBottom: 6 }}>
-                  <Server size={16} />
-                  <strong>No Data Brokers</strong>
-                </div>
-                <span>We never sell, lease, or monetize your study activity or personal data to advertisers.</span>
+                <span>We never ask for government IDs, SSNs, alien registration numbers, passport details, or sensitive personal data.</span>
               </div>
             </div>
 
             <article className="content-card prose-civic">
-              <h2>1. Introduction &amp; Scope</h2>
+              <h2>1. Introduction &amp; Privacy-First Philosophy</h2>
               <p>
-                CivicPass (&quot;CivicPass&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) provides an independent digital study platform designed to assist candidates preparing for government naturalization exams, including the <strong>United States USCIS Civics Test</strong>, the <strong>United Kingdom Life in the UK Test</strong>, the <strong>Canadian Discover Canada Citizenship Test</strong>, and the <strong>Australian Citizenship: Our Common Bond Examination</strong>.
+                CivicPass (&quot;CivicPass&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) provides an independent digital study platform engineered to help candidates prepare for government naturalization and citizenship exams, including the <strong>United States USCIS Civics Test</strong>, the <strong>United Kingdom Life in the UK Test</strong>, the <strong>Canadian Discover Canada Citizenship Test</strong>, and the <strong>Australian Citizenship: Our Common Bond Examination</strong>.
               </p>
               <p>
-                This Privacy Policy explains how we process information when you access our website, study guides, mock exams, and interactive rehearsal tools. By accessing or using CivicPass, you acknowledge the practices described in this document.
+                Unlike conventional online education platforms that gather personal profiles and monetize test-taker analytics, CivicPass is built from the ground up on a <strong>privacy-first, client-side execution model</strong>. When you prepare for your naturalization test on CivicPass, <strong>everything is client-side</strong>: your tests run directly in your web browser, and no personal or financial information is required to access our study tools.
               </p>
 
               <div className="callout-box callout-box--warning">
-                <strong>Important Notice Regarding Immigration Data:</strong>
+                <strong>Important Notice: Zero Credit Card Collection &amp; Zero Sensitive Personal Data:</strong>
                 <br />
-                CivicPass is an independent educational platform. We <strong>never</strong> ask for, collect, store, or process government alien registration numbers (A-Numbers), USCIS receipt numbers, passport credentials, national insurance numbers, or immigration case files. Do not submit sensitive immigration case details in any support forms.
+                CivicPass is completely free to use. We <strong>never</strong> ask for, collect, process, or store credit card details, debit card information, or payment credentials. Furthermore, we <strong>never</strong> request or collect sensitive personal data such as government Alien Registration Numbers (A-Numbers), USCIS receipt notices, Social Security Numbers, National Insurance numbers, passport details, biometric data, or immigration case files. If any entity claiming to represent CivicPass asks you for credit card details or sensitive immigration records, do not provide them.
               </div>
 
-              <h2>2. Information We Explicitly Do Not Collect</h2>
+              <h2 id="no-collection">2. Information We Explicitly Do Not Collect</h2>
               <p>
-                Unlike many commercial study platforms that monetize candidate data, CivicPass has engineered our platform with data minimization at its core:
+                CivicPass adheres to the principle of comprehensive data minimization. We have deliberately architected our platform so that the following sensitive data categories are never requested, collected, or stored:
               </p>
               <ul>
-                <li><strong>No User Account Mandate:</strong> You do not need to register, provide an email address, or link social accounts to complete practice exams or access our study guides.</li>
-                <li><strong>No Sensitive Identity Credentials:</strong> We never collect government ID numbers, alien registration numbers, visa documentation, or biometrics.</li>
-                <li><strong>No Financial Data:</strong> Core practice questions and mock tests on CivicPass are accessible without entering payment details or credit cards.</li>
-                <li><strong>No Commercial Ad Retargeting:</strong> We do not run third-party behavioral advertising scripts that track your browsing across the web.</li>
+                <li>
+                  <strong>No Credit Card or Payment Details:</strong> We do not collect credit card numbers, debit cards, card expiration dates, CVV/CVC security codes, bank routing information, or billing addresses. CivicPass is completely free. There are no paywalls, paid tiers, checkout forms, or recurring subscriptions. We never ask for or process any payment data.
+                </li>
+                <li>
+                  <strong>No Sensitive Personal Data:</strong> We do not ask for, collect, process, or hold any sensitive personal data (special category data under GDPR Article 9, UK GDPR, and CCPA/CPRA). This includes:
+                  <ul style={{ marginTop: 8, marginBottom: 8 }}>
+                    <li>Government-issued identification numbers (Social Security Numbers, Alien Registration / A-Numbers, National Insurance Numbers, Passport numbers, Driver&apos;s License IDs, or Taxpayer IDs).</li>
+                    <li>Immigration case records, petition numbers, filing documents, or legal status paperwork.</li>
+                    <li>Biometric, facial recognition, or genetic information.</li>
+                    <li>Special category personal characteristics, including racial or ethnic origin, religious or philosophical beliefs, political affiliations, trade union membership, medical records, or sexual orientation.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>No Mandatory User Accounts or Passwords:</strong> You are never forced to register, provide your real name, submit an email address, or link third-party social media profiles (such as Google, Apple, or Facebook) to take practice exams or read statutory guides.
+                </li>
+                <li>
+                  <strong>No Cross-Site Commercial Ad Trackers or Data Brokers:</strong> We do not embed surveillance trackers, behavioral ad pixels, or third-party marketing brokers. We never sell, rent, or monetize your study activity or test habits with advertisers.
+                </li>
               </ul>
 
-              <h2>3. Information We Collect and How It Is Used</h2>
+              <h2 id="client-side">3. Client-Side Architecture: Everything Is Client Side</h2>
               <p>
-                To maintain the stability, performance, and legal security of our platform, we collect limited categories of technical information:
-              </p>
-              <h3>A. Automatically Collected Technical Logs</h3>
-              <p>
-                When your browser requests pages, style sheets, or question data from CivicPass, our hosting servers automatically record standard HTTP server logs. This may include:
+                A core pillar of CivicPass is that <strong>everything is client side</strong>. We deliberately avoid server-side test scoring and remote database tracking to protect your educational privacy:
               </p>
               <ul>
-                <li>Your Internet Protocol (IP) address (used strictly for network diagnostics, DDoS rate limiting, and coarse geolocation to serve local regional tracks).</li>
+                <li>
+                  <strong>100% Client-Side Test Execution:</strong> When you select an exam track (such as US, UK, Canada, or Australia), the relevant question pool is fetched by your browser. All test mechanics—including question randomization, countdown timers, answer selection, score calculation, pass/fail grading, and statutory feedback—execute strictly within your browser&apos;s local JavaScript runtime.
+                </li>
+                <li>
+                  <strong>Zero Server-Side Answer Tracking:</strong> Your individual test answers, the questions you get right or wrong, your overall test scores, and your diagnostic performance metrics are <strong>never transmitted to, analyzed by, or stored on our servers</strong>. We do not track or log what questions you missed or how you performed.
+                </li>
+                <li>
+                  <strong>Local Browser Storage:</strong> To allow you to review your test results or retain interface preferences (such as selected country track and timer pacing) between visits, CivicPass uses your browser&apos;s local storage capabilities (<code>localStorage</code> and <code>sessionStorage</code>). This information is saved exclusively on your local device.
+                </li>
+                <li>
+                  <strong>Instant Local Deletion:</strong> Because all test activity remains entirely on the client side, you maintain full sovereignty over your data. You can erase your test history, scores, and preferences at any moment by clearing your browser&apos;s site data or cache for <code>civicpass.org</code>. Because no copy is ever saved to a server database, clearing your browser deletes your history permanently and irrevocably.
+                </li>
+              </ul>
+
+              <h2>4. Information We Collect and How It Is Used</h2>
+              <p>
+                To maintain platform availability, defend against cyber threats, and support users who voluntarily reach out, we process minimal technical data:
+              </p>
+              <h3>A. Standard Server Logs (Hosting Infrastructure)</h3>
+              <p>
+                When your browser requests web pages, static stylesheets, or question files, edge hosting servers record standard HTTP server access logs. This limited technical telemetry may include:
+              </p>
+              <ul>
+                <li>Your Internet Protocol (IP) address (used solely for real-time edge routing, DDoS mitigation, rate limiting, and coarse country-level routing).</li>
                 <li>Browser user-agent, operating system version, and device type.</li>
-                <li>Referring URLs, requested paths, and request timestamps.</li>
-                <li>HTTP status codes and error rates.</li>
+                <li>Requested URL path, HTTP status codes, and request timestamps.</li>
               </ul>
               <p>
-                These logs are maintained for security analysis and operational health, and are routinely purged on an automated cycle.
+                These infrastructure logs are used exclusively for security auditing, network integrity, and platform health. They are never tied to individual study habits and are routinely purged on an automated retention cycle.
               </p>
 
-              <h3>B. Voluntary Communications &amp; Feedback</h3>
+              <h3>B. Voluntary Support Inquiries</h3>
               <p>
-                If you choose to submit a message via our <Link href="/contact-us">Contact Us</Link> page (for technical support, editorial question corrections, or feedback), we receive the details you enter:
+                If you choose to contact us via our <Link href="/contact-us">Contact Us</Link> page (e.g., to report a typographical error, request clarification, or provide editorial feedback), we receive the details you choose to provide:
               </p>
               <ul>
                 <li>Your name (or pseudonym).</li>
-                <li>Your email address (to reply to your inquiry).</li>
-                <li>The category of inquiry, target exam track, and message body.</li>
+                <li>Your email address (solely to reply to your inquiry).</li>
+                <li>The category of inquiry, selected exam track, and message body.</li>
               </ul>
               <p>
-                This information is used exclusively to answer your request and improve platform accuracy. We do not add your contact email to marketing lists or distribute it to third parties.
-              </p>
-
-              <h2>4. Browser Local Storage &amp; Cookies</h2>
-              <p>
-                CivicPass utilizes modern browser storage capabilities (such as <code>localStorage</code> and session tokens) to enable a seamless practice experience without requiring a server-side database login:
-              </p>
-              <ul>
-                <li><strong>Exam Progress &amp; State:</strong> When you complete an exam session, your answers and calculated score breakdown are retained directly on your device so you can view your diagnostic results.</li>
-                <li><strong>UI Preferences:</strong> Test timer pacing and selected country exam tracks are saved locally in your browser.</li>
-              </ul>
-              <p>
-                You can clear this data at any time through your browser settings by clearing site storage for <code>civicpass.org</code>.
+                This information is used strictly to respond to your message. We never use support emails for marketing campaigns, newsletter subscriptions, or third-party sharing.
               </p>
 
               <h2>5. Legal Bases for Processing (GDPR &amp; UK GDPR)</h2>
               <p>
-                For individuals residing in the European Economic Area (EEA) and the United Kingdom, CivicPass processes technical data under the following legal bases:
+                For individuals residing in the European Economic Area (EEA) and the United Kingdom, CivicPass processes technical data under the following lawful bases:
               </p>
               <ul>
-                <li><strong>Legitimate Interests:</strong> To deliver dependable educational resources, ensure server stability, prevent abuse or denial-of-service attacks, and fix technical bugs.</li>
-                <li><strong>Consent:</strong> When you voluntarily submit a message to our support or editorial inbox.</li>
+                <li><strong>Legitimate Interests:</strong> To deliver reliable and secure civic educational materials, maintain edge network stability, defend against malicious denial-of-service attacks, and troubleshoot infrastructure errors.</li>
+                <li><strong>Consent:</strong> When you voluntarily send a message to our support or editorial inbox.</li>
               </ul>
 
-              <h2>6. Your Privacy Rights (GDPR, UK Data Protection Act &amp; CCPA/CPRA)</h2>
+              <h2 id="gdpr">6. Your Privacy Rights (GDPR, UK Data Protection Act &amp; CCPA/CPRA)</h2>
               <p>
-                Depending on your location, you have statutory rights concerning your personal data:
+                Depending on your jurisdiction, you possess statutory rights regarding personal data:
               </p>
               <ul>
-                <li><strong>Right of Access &amp; Portability:</strong> You may request confirmation of whether CivicPass holds any personal information relating to you and obtain a copy.</li>
-                <li><strong>Right to Rectification &amp; Erasure:</strong> You have the right to request correction or immediate deletion of any correspondence or messages you have submitted to us.</li>
+                <li><strong>Right of Access &amp; Portability:</strong> You may request confirmation of whether CivicPass holds any personal correspondence relating to you and receive a copy.</li>
+                <li><strong>Right to Rectification &amp; Erasure:</strong> You have the right to request correction or prompt deletion of any support messages or correspondence you have sent to us.</li>
                 <li><strong>Right to Object &amp; Restrict:</strong> You may object to or restrict processing of your technical information where applicable.</li>
-                <li><strong>California Residents (CCPA/CPRA):</strong> We do not sell or share personal information. You have the right to request disclosure of data collection categories and request deletion without discrimination.</li>
+                <li><strong>California Residents (CCPA/CPRA):</strong> We do not sell or share personal information. We do not collect credit cards or sensitive personal information. You have the right to request disclosure of data practices and request erasure without discrimination.</li>
+                <li><strong>Client-Side Data Self-Service:</strong> Because all study progress, mock scores, and exam answers reside solely on your device in browser local storage, you can exercise full data erasure instantly by clearing your browser&apos;s site data.</li>
               </ul>
               <p>
-                To exercise any of these rights, please reach out directly through our <Link href="/contact-us">Contact Page</Link> or send an email to <code>privacy@civicpass.org</code>.
+                To exercise any statutory privacy rights regarding support communications, please contact us through our <Link href="/contact-us">Contact Page</Link> or email <code>privacy@civicpass.org</code>.
               </p>
 
-              <h2>7. Data Security and Retention</h2>
+              <h2>7. Data Security and Encryption</h2>
               <p>
-                We implement industry-standard administrative and technical security measures:
+                We adhere to rigorous technical safeguards to protect our platform:
               </p>
               <ul>
-                <li><strong>Encryption in Transit:</strong> All web traffic is strictly encrypted using modern Transport Layer Security (TLS 1.3 / HTTPS).</li>
-                <li><strong>Least-Privilege Infrastructure:</strong> Internal access to server logs and inquiry communications is restricted to authorized administrative personnel.</li>
-                <li><strong>Minimal Retention:</strong> Server diagnostic logs are automatically cycled and discarded. Support inquiries are archived or deleted once resolved.</li>
+                <li><strong>Transport Layer Security:</strong> All communications between your browser and our edge servers are encrypted using modern TLS (HTTPS) protocols.</li>
+                <li><strong>Zero Payment Attack Surface:</strong> Because we do not collect or store credit card details or bank credentials, our systems carry zero risk of payment card breaches or financial data leakage.</li>
+                <li><strong>Least-Privilege Administration:</strong> Server infrastructure access is strictly restricted to authorized platform administrators.</li>
+                <li><strong>Client Isolation:</strong> Because test state is kept client-side, your test sessions are isolated entirely to your local device.</li>
               </ul>
 
-              <h2>8. Third-Party Service Providers</h2>
+              <h2>8. Third-Party Edge Infrastructure Providers</h2>
               <p>
-                We partner with vetted, reputable cloud hosting and edge network infrastructure providers (such as cloud platform hosts and content delivery networks) to host CivicPass and ensure high availability across global regions. These providers process data on our behalf solely to deliver edge caching, DDoS protection, and secure web serving in compliance with standard data protection agreements.
+                We partner with reputable cloud infrastructure and edge network providers (such as Cloudflare and global content delivery networks) to host CivicPass and ensure low-latency worldwide availability. These infrastructure partners handle network-level requests, DDoS filtering, and static content caching strictly in accordance with robust enterprise data protection standards.
               </p>
 
               <h2>9. Children&apos;s Online Privacy (COPPA Compliance)</h2>
               <p>
-                CivicPass is designed for adults and young adults preparing for official national citizenship exams. We do not knowingly collect personal identifiable information from children under the age of 13 (or under 16 in certain jurisdictions). If you believe a child has provided us with personal information, please notify us immediately at <code>privacy@civicpass.org</code> and we will promptly delete it.
+                CivicPass is designed for adults and young adults preparing for official national citizenship exams. We do not knowingly collect personal identifiable information from children under the age of 13 (or under 16 in applicable jurisdictions). If you believe a minor has submitted personal details through our contact form, please notify us at <code>privacy@civicpass.org</code> and we will delete the correspondence immediately.
               </p>
 
               <h2>10. Updates to This Privacy Policy</h2>
               <p>
-                We may periodically update this policy to reflect changes in our platform features, statutory requirements, or legal standards. When modifications occur, the updated policy will be posted with an updated &quot;Effective Date&quot; at the top of this page. We encourage you to review this policy periodically.
+                We may periodically update this policy to reflect platform improvements or statutory developments. When updates are published, the effective date at the top of this policy will be revised accordingly. We encourage you to revisit this page periodically to stay informed about our privacy architecture.
               </p>
 
               <h2>11. Contact Our Privacy Team</h2>
               <p>
-                If you have questions, comments, or data privacy requests regarding this Privacy Policy, please contact our data compliance coordinator:
+                If you have questions, feedback, or data privacy requests regarding this Privacy Policy or our client-side architecture, please contact our compliance coordinator:
               </p>
               <div className="callout-box callout-box--info">
                 <strong>CivicPass Privacy Officer</strong>
                 <br />
-                Email: <code>privacy@civicpass.org</code>
-                <br />
                 Inquiry Form: <Link href="/contact-us">civicpass.org/contact-us</Link>
                 <br />
-                Response Commitment: We respond to verified data requests within 30 calendar days.
+                Direct Email: <code>privacy@civicpass.org</code>
+                <br />
+                Response Commitment: We respond to verified privacy inquiries within 30 calendar days.
               </div>
             </article>
 
