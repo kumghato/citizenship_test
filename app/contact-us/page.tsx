@@ -166,7 +166,7 @@ export default function ContactUsPage() {
                     <span style={{ fontSize: 11, fontFamily: 'var(--font-geist-mono)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600 }}>Help Desk</span>
                   </div>
                   <h3>General Support</h3>
-                  <p>Questions about our practice tests, audio rehearsal, score calculations, or platform features?</p>
+                  <p>Questions about our practice tests, score calculations, or platform features?</p>
                 </div>
                 <a href="mailto:support@civicpass.org">support@civicpass.org</a>
               </div>

@@ -67,7 +67,7 @@ async function ResultsContent({ params }: ResultsPageProps) {
   }
 
   const result = getExamResultData(normalizedCountry);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
   const pageUrl = `${siteUrl}/test/${normalizedCountry}/results`;
   const parentUrl = `${siteUrl}/test/${normalizedCountry}`;
 

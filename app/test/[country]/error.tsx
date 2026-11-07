@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   RotateCcw,
@@ -67,7 +68,13 @@ export default function ExamErrorBoundary({ error, reset, retry }: ExamErrorProp
       >
         {/* Brand mark */}
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-          <span className="brand__mark">CP</span>
+          <Image
+            src="/icon1.svg"
+            alt="CivicPass logo"
+            width={32}
+            height={32}
+            className="brand__logo"
+          />
           <span className="brand__wordmark" style={{ fontSize: '16px' }}>
             Civic<em>Pass</em>
           </span>

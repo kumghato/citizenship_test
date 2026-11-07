@@ -1,9 +1,8 @@
-'use client';
-
 import React from 'react';
-import Link from 'next/link';
 import { ExamResultData } from '@/lib/resultsData';
-import { clearAllExamStorage } from '@/lib/examStorage';
+import { PrintCertificateButton } from './PrintCertificateButton';
+import { ScrollToReviewButton } from './ScrollToReviewButton';
+import { RetakeExamButton } from './RetakeExamButton';
 
 interface ResultsSummaryHeroProps {
   result: ExamResultData;
@@ -35,22 +34,6 @@ export function ResultsSummaryHero({
   const strokeWidth = 12;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (accuracyPercentage / 100) * circumference;
-
-  const handlePrint = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
-  };
-
-  const handleScrollToReview = () => {
-    if (onReviewMissed) {
-      onReviewMissed();
-    }
-    const element = document.getElementById('statutory-review');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const agencyName = countryId === 'us' ? 'USCIS' : officialBody.split('·')[0].trim();
 
@@ -98,55 +81,41 @@ export function ResultsSummaryHero({
                 </>
               ) : (
                 <>
-                  Simulation Complete · Diagnostic Review for{' '}
-                  <span className="text-amber-700 underline decoration-amber-200 decoration-wavy decoration-2 underline-offset-4">
-                    {agencyName} Standards
+                  Practice Run Complete:{' '}
+                  <span className="text-amber-600 underline decoration-amber-200 decoration-wavy decoration-2 underline-offset-4">
+                    {agencyName} Readiness Benchmark
                   </span>
                 </>
               )}
             </h1>
 
-            {/* Subtitle / Narrative */}
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
               {hasPassed ? (
                 <>
-                  Your overall score of{' '}
-                  <strong className="text-slate-900 font-bold">{accuracyPercentage}%</strong> satisfies the{' '}
-                  <strong className="text-emerald-700 font-semibold">{passingPercentage}% statutory threshold</strong> for{' '}
-                  {countryName}. You demonstrate strong constitutional mastery and are fully on track for your official naturalization eligibility interview.
+                  Your accuracy of <strong>{accuracyPercentage}%</strong> exceeds the statutory passing standard of <strong>{passingPercentage}%</strong> ({passingScore} of {totalQuestions} correct) established for the <strong>{countryName}</strong> naturalization curriculum. Review the statutory analysis below to consolidate your answers.
                 </>
               ) : (
                 <>
-                  Your overall score of{' '}
-                  <strong className="text-slate-900 font-bold">{accuracyPercentage}%</strong> ({correctCount}/{totalQuestions}) is below the{' '}
-                  <strong className="text-amber-800 font-semibold">{passingPercentage}% statutory threshold ({passingScore}/{totalQuestions})</strong> for{' '}
-                  {countryName}. Review the detailed statutory analysis below and retake the test to build passing confidence.
+                  You answered <strong>{correctCount}</strong> of <strong>{totalQuestions}</strong> questions correctly ({accuracyPercentage}%). The official passing threshold for {countryName} is <strong>{passingPercentage}% ({passingScore} correct)</strong>. Review your missed items below to target weaker statutory topics.
                 </>
               )}
             </p>
           </div>
 
-          {/* Mini Metric Pills */}
-          <div className="flex flex-wrap items-center gap-2.5 pt-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 shadow-2xs">
+          {/* Narrative Summary Box */}
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-600" />
               <span>
-                TOTAL TIME: <strong className="text-slate-900">{timeSpentFormatted}</strong>
+                Standard: <strong>{officialBody}</strong>
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 shadow-2xs">
+            <div className="flex items-center gap-4">
               <span>
-                TOTAL QUESTIONS: <strong className="text-slate-900">{totalQuestions} Questions</strong>
+                TIME SPENT: <strong>{timeSpentFormatted}</strong>
               </span>
-            </div>
-
-            <div
-              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold shadow-2xs ${
-                hasPassed
-                  ? 'bg-emerald-50 border-emerald-200/90 text-emerald-800'
-                  : 'bg-amber-50 border-amber-200/90 text-amber-800'
-              }`}
-            >
+              <span>•</span>
               <span>
                 OVERALL ACCURACY:{' '}
                 <strong className={hasPassed ? 'text-emerald-700' : 'text-amber-700'}>
@@ -156,33 +125,24 @@ export function ResultsSummaryHero({
             </div>
           </div>
 
-          {/* Primary Action Buttons */}
+          {/* Primary Action Buttons (Separate Client Component Buttons) */}
           <div className="pt-3 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={handleScrollToReview}
+            <ScrollToReviewButton
+              label={`Review Questions (${incorrectCount} Missed)`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-sm shadow-blue-500/20 hover:shadow-blue-500/35 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-            >
-              <span>Review Questions ({incorrectCount} Missed)</span>
-            </button>
+              onReviewMissed={onReviewMissed}
+            />
 
-            <button
-              type="button"
-              onClick={handlePrint}
+            <PrintCertificateButton
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-2xs transition-colors hover:border-slate-400 cursor-pointer"
-              title="Print official score certificate and answer sheet"
-            >
-              <span>Download Score Report PDF</span>
-            </button>
+            />
 
-            <Link
-              href={`/test/${countryId}`}
-              onClick={() => clearAllExamStorage()}
+            <RetakeExamButton
+              countryId={countryId}
+              label="Retake Test (New Set)"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors cursor-pointer"
               title="Reset timer and attempt a fresh exam set"
-            >
-              <span>Retake Test (New Set)</span>
-            </Link>
+            />
           </div>
         </div>
 

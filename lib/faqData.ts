@@ -12,7 +12,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: 'USCIS · United States',
     question: 'How should I prepare for USCIS test questions and the US citizen test?',
     answer:
-      'To prepare for the US citizen test and American citizen test, focus on the official 100 civics questions provided by USCIS. Our USCIS test practice simulator lets you practice randomized 20-question sets under timed conditions with real-time feedback, statutory citations, and voice audio rehearsal to ensure you comfortably achieve the 60% passing benchmark.',
+      'To prepare for the US citizen test and American citizen test, focus on the official 100 civics questions provided by USCIS. Our USCIS test practice simulator lets you practice randomized 20-question sets under timed conditions with real-time feedback and statutory citations to ensure you comfortably achieve the 60% passing benchmark.',
     bullets: [
       'Covers American government, American history, and integrated civics',
       'Matches the official USCIS 100 civics questions standard',

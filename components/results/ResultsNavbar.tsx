@@ -1,9 +1,9 @@
-'use client';
-
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
 import { SupportedCountry } from '@/lib/quizData';
-import { clearAllExamStorage } from '@/lib/examStorage';
+import { ResultsCountryDropdown } from './ResultsCountryDropdown';
+import { ExitResultsButton } from './ExitResultsButton';
+import { RetakeExamButton } from './RetakeExamButton';
 
 interface ResultsNavbarProps {
   countryId: SupportedCountry;
@@ -12,93 +12,43 @@ interface ResultsNavbarProps {
   hasPassed: boolean;
 }
 
-const ALL_COUNTRIES = [
-  { id: 'us', name: 'United States', flag: '🇺🇸', code: 'USA' },
-  { id: 'uk', name: 'United Kingdom', flag: '🇬🇧', code: 'UK' },
-  { id: 'ca', name: 'Canada', flag: '🇨🇦', code: 'CAN' },
-  { id: 'au', name: 'Australia', flag: '🇦🇺', code: 'AUS' },
-];
-
 export function ResultsNavbar({
   countryId,
   countryName,
   flag,
   hasPassed,
 }: ResultsNavbarProps) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Left: Exit link & Logo */}
         <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            onClick={() => clearAllExamStorage()}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
-            title="Return to CivicPass Home and clear storage"
-          >
-            <span className="hidden sm:inline">Exit to Home</span>
-          </Link>
+          <ExitResultsButton label="Exit to Home" />
 
           <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
-          <Link
-            href="/"
-            onClick={() => clearAllExamStorage()}
+          <ExitResultsButton
             className="flex items-center gap-2 group cursor-pointer"
             title="Return to Home (clears exam storage)"
           >
-            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
-              <span>CP</span>
-            </div>
+            <Image
+              src="/icon1.svg"
+              alt="CivicPass logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
+            />
             <span className="font-extrabold text-slate-900 text-base tracking-tight hidden md:inline">
               Civic<span className="text-blue-600">Pass</span>
             </span>
-          </Link>
+          </ExitResultsButton>
 
-          {/* Country Selector Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200/80 hover:bg-blue-100/70 transition-colors cursor-pointer"
-            >
-              <span>{flag}</span>
-              <span className="hidden sm:inline">{countryName}</span>
-            </button>
-
-            {dropdownOpen && (
-              <div className="absolute left-0 mt-2 w-48 rounded-2xl bg-white shadow-xl border border-slate-200 p-1.5 z-50 animate-in fade-in zoom-in-95">
-                <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  Switch Exam Track
-                </div>
-                {ALL_COUNTRIES.map((c) => (
-                  <Link
-                    key={c.id}
-                    href={`/test/${c.id}/results`}
-                    onClick={() => {
-                      clearAllExamStorage();
-                      setDropdownOpen(false);
-                    }}
-                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      c.id === countryId
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-slate-700 hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span>{c.flag}</span>
-                      <span>{c.name}</span>
-                    </div>
-                    {c.id === countryId && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                    )}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Country Selector Dropdown Button (Client Component) */}
+          <ResultsCountryDropdown
+            countryId={countryId}
+            countryName={countryName}
+            flag={flag}
+          />
         </div>
 
         {/* Center: Navigation Steps with Active Pill on "Results & Review" */}
@@ -106,14 +56,12 @@ export function ResultsNavbar({
           aria-label="Exam Progress"
           className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200/80"
         >
-          <Link
-            href={`/test/${countryId}`}
-            onClick={() => clearAllExamStorage()}
+          <RetakeExamButton
+            countryId={countryId}
+            label="1. Exam Simulation"
             className="px-3 py-1 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors hidden sm:inline-block cursor-pointer"
             title="Return to Exam Simulator and start fresh random test"
-          >
-            1. Exam Simulation
-          </Link>
+          />
 
           {/* ACTIVE STATE PILL: Results & Review */}
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold bg-blue-600 text-white shadow-xs">
@@ -133,14 +81,12 @@ export function ResultsNavbar({
             <span>{hasPassed ? 'Benchmark Passed' : 'Benchmark Pending'}</span>
           </div>
 
-          <Link
-            href={`/test/${countryId}`}
-            onClick={() => clearAllExamStorage()}
+          <RetakeExamButton
+            countryId={countryId}
+            label="Retake"
             className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
             title="Retake practice examination with fresh random questions"
-          >
-            <span className="hidden sm:inline">Retake</span>
-          </Link>
+          />
         </div>
       </div>
     </header>

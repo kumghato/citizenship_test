@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -8,7 +9,13 @@ export function Footer() {
           {/* Col 1: Brand & Mission */}
           <div className="site-footer__brand-col">
             <Link href="/" className="brand" title="CivicPass Home">
-              <span className="brand__mark">CP</span>
+              <Image
+                src="/icon1.svg"
+                alt="CivicPass logo"
+                width={34}
+                height={34}
+                className="brand__logo"
+              />
               <span className="brand__wordmark">
                 Civic<em>Pass</em>
               </span>

@@ -181,13 +181,13 @@ export function evaluateExamResults(
   if (accuracyPercentage === 100) {
     recommendation = `Flawless 100% mastery demonstrated across all ${countryId.toUpperCase()} civic statutory domains. You are exceptionally prepared for the official exam.`;
     insiderNote = `During your naturalization interview, adjudicating officers ask questions verbally. Your prompt, 100% recall demonstrates optimal command of statutory standards.`;
-    oralExamClarity = `Oral Exam Simulation: Officer clarity standard ${correctCount}/${totalQuestions} passed`;
+    oralExamClarity = `Interview Standard: Officer clarity standard ${correctCount}/${totalQuestions} passed`;
     oralExamStatus = 'OPTIMAL';
   } else if (hasPassed) {
     const focusCat = missedCategories.length > 0 ? missedCategories.join(' and ') : 'missed statutory standards';
     recommendation = `Targeted focus recommended on ${focusCat} to reach 100% confidence for your naturalization interview.`;
     insiderNote = `You have achieved the statutory passing score of ${passingScore}/${totalQuestions}. Review the ${incorrectCount} missed questions below to cement instant verbal recall.`;
-    oralExamClarity = `Oral Exam Simulation: Officer clarity standard ${correctCount}/${totalQuestions} passed`;
+    oralExamClarity = `Interview Standard: Officer clarity standard ${correctCount}/${totalQuestions} passed`;
     oralExamStatus = accuracyPercentage >= 85 ? 'OPTIMAL' : 'PASS';
   } else {
     const weakDomain = domains.reduce((prev, curr) => (prev.percentage < curr.percentage ? prev : curr), domains[0]);

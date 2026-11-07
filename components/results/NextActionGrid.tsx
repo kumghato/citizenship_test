@@ -1,8 +1,6 @@
-'use client';
-
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { clearAllExamStorage } from '@/lib/examStorage';
+import React from 'react';
+import { CreateFlashcardsButton } from './CreateFlashcardsButton';
+import { RetakeExamButton } from './RetakeExamButton';
 
 interface NextActionGridProps {
   countryId?: string;
@@ -15,15 +13,6 @@ export function NextActionGrid({
   incorrectCount = 3,
   onPracticeMissed,
 }: NextActionGridProps) {
-  const [flashcardCreated, setFlashcardCreated] = useState(false);
-
-  const handleCreateFlashcards = () => {
-    setFlashcardCreated(true);
-    if (onPracticeMissed) {
-      onPracticeMissed();
-    }
-  };
-
   const commonwealthTracks = [
     { id: 'uk', code: 'UKVI', name: 'United Kingdom', flag: '🇬🇧', exam: 'Life in the UK' },
     { id: 'ca', code: 'IRCC', name: 'Canada', flag: '🇨🇦', exam: 'Discover Canada' },
@@ -76,21 +65,10 @@ export function NextActionGrid({
           </div>
 
           <div>
-            <button
-              type="button"
-              onClick={handleCreateFlashcards}
-              className={`w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                flashcardCreated
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-500/20 hover:scale-[1.01]'
-              }`}
-            >
-              {flashcardCreated ? (
-                <span>Flashcards Generated!</span>
-              ) : (
-                <span>Create Custom Flash [{incorrectCount}]</span>
-              )}
-            </button>
+            <CreateFlashcardsButton
+              incorrectCount={incorrectCount}
+              onPracticeMissed={onPracticeMissed}
+            />
           </div>
         </div>
 
@@ -114,50 +92,44 @@ export function NextActionGrid({
           </div>
 
           <div>
-            <Link
-              href={`/test/${countryId}`}
-              onClick={() => clearAllExamStorage()}
+            <RetakeExamButton
+              countryId={countryId}
+              label="Launch Simulation #5"
               className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200/90 flex items-center justify-center gap-2 transition-all hover:scale-[1.01] cursor-pointer"
-            >
-              <span>Try Mock Exam #5</span>
-            </Link>
+              title="Launch the next advanced difficulty simulation"
+            />
           </div>
         </div>
 
-        {/* Card 3: Cross-Commonwealth Track */}
+        {/* Card 3: Commonwealth Compare */}
         <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/70">
-                Global Tracks
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/70">
+                Cross-Jurisdiction
               </span>
             </div>
 
             <div>
               <h3 className="text-lg font-bold text-slate-900">
-                Cross-Commonwealth Track
+                Compare International Civics
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                Preparing for dual citizenship or relocation? Switch syllabus track to UK, Canada, or Australia.
+                Compare statutory naturalization standards across peer democracies.
               </p>
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              {commonwealthTracks.map((track) => (
-                <Link
-                  key={track.id}
-                  href={`/test/${track.id}/results`}
-                  onClick={() => clearAllExamStorage()}
-                  className="flex-1 min-w-[70px] inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 hover:border-slate-300 transition-colors cursor-pointer"
-                  title={`${track.name} (${track.exam})`}
-                >
-                  <span>{track.flag}</span>
-                  <span>{track.code}</span>
-                </Link>
-              ))}
-            </div>
+            {commonwealthTracks.slice(0, 2).map((track) => (
+              <RetakeExamButton
+                key={track.id}
+                countryId={track.id}
+                label={`${track.flag} ${track.name} (${track.code})`}
+                className="w-full py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100/90 border border-slate-200 flex items-center justify-between transition-colors cursor-pointer"
+                title={`Try the ${track.name} citizenship practice test`}
+              />
+            ))}
           </div>
         </div>
       </div>

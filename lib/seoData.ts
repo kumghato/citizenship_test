@@ -30,8 +30,11 @@ export const COUNTRY_SEO_DATA: Record<SupportedCountry, TrackSeoData> = {
     examName: 'USCIS Civics Practice Exam',
     metaTitle: 'USCIS Test Practice: Official US Citizen Test Questions & Civics Mock Exam',
     metaDescription:
-      'Practice USCIS test questions for your US citizen test and American citizen test. Free 2026 USCIS test practice with real-time scoring, statutory explanations, and audio simulator.',
+      'Practice USCIS test questions for your US citizen test and American citizen test. Free 2026 USCIS test practice with real-time scoring and statutory explanations.',
     keywords: [
+      'citizenship test',
+      'free citizenship test',
+      'online citizenship test',
       'USCIS',
       'uscis test questions',
       'uscis test practice',
@@ -121,6 +124,9 @@ export const COUNTRY_SEO_DATA: Record<SupportedCountry, TrackSeoData> = {
     metaDescription:
       'Prepare for the Life in the UK test with free official practice questions and timed mock tests. Master the 3rd edition handbook topics with our Life in the UK test web simulator.',
     keywords: [
+      'citizenship test',
+      'free citizenship test',
+      'online citizenship test',
       'Life in the UK',
       'life in the uk test',
       'life in the uk test practice',
@@ -210,6 +216,9 @@ export const COUNTRY_SEO_DATA: Record<SupportedCountry, TrackSeoData> = {
     metaDescription:
       'Pass your Canadian citizenship test on the first try. Free Discover Canada practice exam featuring official IRCC questions, Canadian history, rights, and government.',
     keywords: [
+      'citizenship test',
+      'free citizenship test',
+      'online citizenship test',
       'Discover Canada',
       'canadian citizenship',
       'canadian citizenship test',
@@ -298,6 +307,9 @@ export const COUNTRY_SEO_DATA: Record<SupportedCountry, TrackSeoData> = {
     metaDescription:
       'Prepare for the Australian citizenship test with official Our Common Bond practice questions. Practice Australian citizenship our common bond mock exams with Australian values.',
     keywords: [
+      'citizenship test',
+      'free citizenship test',
+      'online citizenship test',
       'our common bond',
       'our common bond practice test',
       'australian citizenship our common bond',

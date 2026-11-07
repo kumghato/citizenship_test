@@ -164,7 +164,13 @@ export default function GlobalError({ error, reset, retry }: GlobalErrorProps) {
       </head>
       <body>
         <main className="box">
-          <div className="mark">CP</div>
+          <img
+            src="/icon1.svg"
+            alt="CivicPass logo"
+            width={40}
+            height={40}
+            style={{ borderRadius: '12px', margin: '0 auto 16px', display: 'block' }}
+          />
           <div>
             <span className="badge">Critical Recovery Mode</span>
           </div>

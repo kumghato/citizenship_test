@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Clock } from 'lucide-react';
 
@@ -306,9 +307,13 @@ export function QuizContainer({ config }: QuizContainerProps) {
               className="flex items-center gap-2 cursor-pointer group text-left"
               title="Return to Home (exits exam and clears all storage)"
             >
-              <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:scale-105 transition-transform">
-                <span>CP</span>
-              </div>
+              <Image
+                src="/icon1.svg"
+                alt="CivicPass logo"
+                width={28}
+                height={28}
+                className="w-7 h-7 rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
+              />
               <span className="font-extrabold text-slate-900 text-base tracking-tight">
                 Civic<span className="text-blue-600">Pass</span>
               </span>

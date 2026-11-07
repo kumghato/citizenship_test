@@ -12,7 +12,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://civicpass.org";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://civicpass.org";
+const siteUrl = rawSiteUrl.startsWith("http://") || rawSiteUrl.startsWith("https://")
+  ? rawSiteUrl
+  : `https://${rawSiteUrl}`;
 
 export const viewport: Viewport = {
   themeColor: "#176b5b",
@@ -22,13 +25,24 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [
+      { url: '/icon1.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/icon1.svg',
+    apple: '/icon1.svg',
+  },
   title: {
-    default: "CivicPass — Pass USCIS, Life in the UK, Discover Canada & Our Common Bond Tests",
+    default: "Citizenship Test — Free online test for USCIS, Life in the UK, Discover Canada & Our Common Bond Tests",
     template: "%s | CivicPass",
   },
   description:
-    "Official citizenship practice tests: USCIS test practice & civics questions for the US citizen test, Life in the UK mock test & practice questions, Discover Canada Canadian citizenship test, and Australian citizenship Our Common Bond practice test.",
+    "Free citizenship practice tests: USCIS test practice & civics questions for the US citizen test, Life in the UK mock test & practice questions, Discover Canada Canadian citizenship test, and Australian citizenship Our Common Bond practice test.",
   keywords: [
+    "citizenship test",
+    "free citizenship test",
+    "online citizenship test",
     "USCIS",
     "Life in the UK",
     "Discover Canada",
@@ -66,7 +80,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CivicPass — Official Citizenship Test Practice",
+    title: "CivicPass —  Citizenship Test Practice",
     description:
       "Study official questions for USCIS, Life in the UK test, Discover Canada, and Australian citizenship Our Common Bond.",
   },
@@ -100,6 +114,7 @@ const websiteSchema = {
       "@id": `${siteUrl}/#organization`,
       name: "CivicPass",
       url: siteUrl,
+      logo: `${siteUrl}/icon1.svg`,
       description:
         "Independent educational platform delivering verified citizenship test questions and mock exams for the United States, United Kingdom, Canada, and Australia.",
     },

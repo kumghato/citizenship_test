@@ -82,6 +82,7 @@ button { cursor: pointer; }
 .site-header { position: sticky; top: 0; z-index: 50; background: rgb(247 248 245 / .88); border-bottom: 1px solid rgb(223 231 225 / .85); backdrop-filter: blur(18px); }
 .site-header__inner { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.brand__logo { width: 34px; height: 34px; border-radius: 11px; flex-shrink: 0; display: block; object-fit: contain; }
 .brand__mark { display: grid; place-items: center; width: 34px; height: 34px; color: #fff; background: var(--accent); border-radius: 11px; font-weight: 800; font-size: 13px; letter-spacing: -0.02em; }
 .brand__wordmark { font-size: 18px; font-weight: 760; letter-spacing: -.04em; }
 .brand__wordmark em { color: var(--accent); font-style: normal; }
@@ -309,7 +310,7 @@ button { cursor: pointer; }
   .container { width: min(100% - 32px, 540px); }
   .site-header__inner { min-height: 64px; }
   .site-header__actions .button-primary { min-height: 40px; padding-inline: 13px; font-size: 12px; }
-  .brand__mark { width: 31px; height: 31px; }
+  .brand__mark, .brand__logo { width: 31px; height: 31px; }
   .brand__wordmark { font-size: 17px; }
   .display-title { font-size: clamp(2.65rem, 14vw, 4.2rem); }
   .hero { padding-top: 58px; }

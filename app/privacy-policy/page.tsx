@@ -214,7 +214,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul>
                 <li><strong>Exam Progress &amp; State:</strong> When you complete an exam session, your answers and calculated score breakdown are retained directly on your device so you can view your diagnostic results.</li>
-                <li><strong>UI Preferences:</strong> Toggles for audio simulators, test timer pacing, and selected country exam tracks are saved locally in your browser.</li>
+                <li><strong>UI Preferences:</strong> Test timer pacing and selected country exam tracks are saved locally in your browser.</li>
               </ul>
               <p>
                 You can clear this data at any time through your browser settings by clearing site storage for <code>civicpass.org</code>.

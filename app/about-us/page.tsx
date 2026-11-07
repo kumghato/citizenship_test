@@ -76,7 +76,7 @@ export default function AboutUsPage() {
           '@type': 'EducationalOrganization',
           name: 'CivicPass',
           url: siteUrl,
-          logo: `${siteUrl}/favicon.ico`,
+          logo: `${siteUrl}/icon1.svg`,
           description:
             'Independent civic educational project dedicated to helping naturalization candidates master citizenship test requirements with statutory explanations.',
           foundingDate: '2025',
@@ -234,7 +234,7 @@ export default function AboutUsPage() {
                   <strong>2. Privacy by Design:</strong> We believe your study progress is your business. We do not require account creation, passwords, or emails to take full practice exams. Your answers and diagnostic feedback remain in your browser.
                 </li>
                 <li>
-                  <strong>3. Realistic Test Pacing &amp; Oral Simulation:</strong> Written multiple-choice tests are only half the battle—the US naturalization test is an oral interview! CivicPass includes oral rehearsal tools, audible audio simulation, and countdown timers that replicate authentic exam conditions.
+                  <strong>3. Realistic Test Pacing &amp; Timed Exam Practice:</strong> Written multiple-choice tests are only half the battle—the naturalization test requires quick, confident recall under pressure! CivicPass includes comprehensive practice tools, statutory citations, and countdown timers that replicate authentic exam conditions.
                 </li>
                 <li>
                   <strong>4. Zero Financial Barriers to Essential Civics:</strong> Core practice questions and mock tests are completely free, open, and accessible to everyone, everywhere.

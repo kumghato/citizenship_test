@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import useWeb3forms from '@web3forms/react';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -11,35 +12,79 @@ export function ContactForm() {
     country: 'us',
     questionRef: '',
     message: '',
+    botcheck: false,
   });
 
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const accessKey =
+    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ||
+    process.env.WEB3FORMS_ACCESS_KEY ||
+    '';
+
+  const { submit } = useWeb3forms({
+    access_key: accessKey,
+    settings: {
+      from_name: 'CivicPass Support',
+      subject: 'New Inquiry from CivicPass Portal',
+    },
+    onSuccess: () => {
+      setStatus('success');
+    },
+    onError: (message) => {
+      setStatus('error');
+      setErrorMessage(message || 'Failed to submit message. Please try again or email us directly.');
+    },
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const { checked } = e.target as HTMLInputElement;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (formData.botcheck) {
+      // Spam honeypot triggered
+      return;
+    }
+
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
       setErrorMessage('Please fill in all required fields (Name, Email, and Message).');
       return;
     }
 
+    if (!accessKey) {
+      setStatus('error');
+      setErrorMessage('Web3Forms access key is missing. Please configure NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in your .env file.');
+      return;
+    }
+
     startTransition(async () => {
       try {
-        // Simulate immediate response acknowledgment
-        await new Promise((resolve) => setTimeout(resolve, 600));
-        setStatus('success');
+        await submit({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          category: formData.category,
+          country: formData.country,
+          questionRef: formData.questionRef.trim(),
+          message: formData.message.trim(),
+          subject: `CivicPass Inquiry: [${formData.country.toUpperCase()}] ${formData.category.replace('-', ' ').toUpperCase()}`,
+        });
       } catch {
         setStatus('error');
-        setErrorMessage('Failed to submit message. Please try again or email us directly.');
+        setErrorMessage('Failed to submit message. Please check your network connection and try again.');
       }
     });
   };
@@ -65,6 +110,7 @@ export function ContactForm() {
               country: 'us',
               questionRef: '',
               message: '',
+              botcheck: false,
             });
             setStatus('idle');
           }}
@@ -79,6 +125,17 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit} noValidate>
+      {/* Honeypot field for bot protection */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        checked={formData.botcheck}
+        onChange={handleChange}
+        style={{ display: 'none' }}
+        tabIndex={-1}
+        autoComplete="off"
+      />
+
       {status === 'error' && (
         <div className="form-feedback form-feedback--error" role="alert">
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

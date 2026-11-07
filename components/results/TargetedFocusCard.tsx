@@ -10,7 +10,7 @@ interface TargetedFocusCardProps {
 export function TargetedFocusCard({
   recommendation = 'Focus on 1800s, Capture/Treaty, and national holidays to reach 100% confidence for your interview.',
   insiderNote = 'During your in-person naturalization interview, USCIS adjudicating officers ask questions in rapid oral cadence until you answer 6 correctly. Review the 1800s statutory era and federal winter holidays to ensure immediate verbal recall.',
-  oralExamClarity = 'Oral Exam Simulation: Officer clarity standard 15/15 passed',
+  oralExamClarity = 'Interview Standard: Officer clarity standard 15/15 passed',
   oralExamStatus = 'OPTIMAL',
 }: TargetedFocusCardProps) {
   return (
@@ -57,7 +57,7 @@ export function TargetedFocusCard({
         </p>
       </div>
 
-      {/* Mini Status Row: Oral Exam Simulation */}
+      {/* Mini Status Row: Interview Standard */}
       <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
           <span>{oralExamClarity}</span>
