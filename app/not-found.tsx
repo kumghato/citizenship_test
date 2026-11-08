@@ -12,7 +12,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 
 export const metadata: Metadata = {
   title: '404 — Page Not Found',

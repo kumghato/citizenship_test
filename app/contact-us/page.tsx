@@ -12,7 +12,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 const pageUrl = `${siteUrl}/contact-us`;
 
 export const metadata: Metadata = {

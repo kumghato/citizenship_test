@@ -21,7 +21,7 @@ export async function generateMetadata({
 }: ResultsPageProps): Promise<Metadata> {
   const { country } = await params;
   const normalizedCountry = country.toLowerCase() as SupportedCountry;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 
   if (!SUPPORTED_COUNTRIES.includes(normalizedCountry)) {
     return {

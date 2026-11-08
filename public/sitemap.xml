@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- CivicPass Core Hub & Landing -->
+  <!-- Core Hub & Landing -->
   <url>
-    <loc>https://civicpass.org</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Static Information & Legal Pages -->
   <url>
-    <loc>https://civicpass.org/about-us</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/about-us</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/contact-us</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/contact-us</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/privacy-policy</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/privacy-policy</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/terms-conditions</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/terms-conditions</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Citizenship Practice Exams -->
   <url>
-    <loc>https://civicpass.org/test/us</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/us</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/test/us/results</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/us/results</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://civicpass.org/test/uk</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/uk</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/test/uk/results</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/uk/results</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://civicpass.org/test/ca</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/ca</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/test/ca/results</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/ca/results</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://civicpass.org/test/au</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/au</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://civicpass.org/test/au/results</loc>
-    <lastmod>2026-11-05</lastmod>
+    <loc>https://onlinecitizenshiptest.com/test/au/results</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -4,7 +4,7 @@ import { Navbar } from '@/components/landing/Navbar';
 import { Footer } from '@/components/landing/Footer';
 import { AlertTriangle, Scale } from 'lucide-react';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 const pageUrl = `${siteUrl}/terms-conditions`;
 
 export const metadata: Metadata = {

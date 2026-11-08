@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { SUPPORTED_COUNTRIES } from '@/lib/quizData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
   const lastModified = new Date();
 
   const mainPages: MetadataRoute.Sitemap = [

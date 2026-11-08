@@ -4,7 +4,7 @@ import { Navbar } from '@/components/landing/Navbar';
 import { Footer } from '@/components/landing/Footer';
 import { ShieldCheck, Lock, CreditCard, Cpu } from 'lucide-react';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 const pageUrl = `${siteUrl}/privacy-policy`;
 
 export const metadata: Metadata = {

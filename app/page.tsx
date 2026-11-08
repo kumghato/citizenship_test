@@ -33,7 +33,7 @@ const features = [
 ];
 
 export default function LandingPage() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 
   const homeJsonLd = {
     '@context': 'https://schema.org',

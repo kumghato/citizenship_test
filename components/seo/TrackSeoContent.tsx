@@ -20,7 +20,7 @@ export function TrackSeoContent({ country }: TrackSeoContentProps) {
 
   if (!data) return null;
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
   const pageUrl = `${siteUrl}/test/${normalizedCountry}`;
 
   const otherCountries = SUPPORTED_COUNTRIES.filter(

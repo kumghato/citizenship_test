@@ -27,7 +27,7 @@ export async function generateMetadata({
   const normalizedCountry = country.toLowerCase() as SupportedCountry;
   const config = getExamConfig(normalizedCountry);
   const seo = COUNTRY_SEO_DATA[normalizedCountry];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://civicpass.org';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshiptest.com';
 
   if (!config || !seo) {
     return {
