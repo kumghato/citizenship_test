@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { CountryPreferenceProvider } from "@/components/landing/CountryPreferenceProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -135,7 +136,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col">
-        {children}
+        <CountryPreferenceProvider>{children}</CountryPreferenceProvider>
         <Script
           src="https://www.googletagmanager.com/gtm.js?id=GTM-WQHDMNVG"
           strategy="afterInteractive"

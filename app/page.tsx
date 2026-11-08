@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   CheckCircle2,
   LockKeyhole,
@@ -6,6 +5,8 @@ import {
 } from 'lucide-react';
 
 import { Navbar } from '@/components/landing/Navbar';
+import { HeroPracticeButton } from '@/components/landing/HeroPracticeButton';
+import { HeroReadinessSnapshot } from '@/components/landing/HeroReadinessSnapshot';
 import { CountrySelector } from '@/components/landing/CountrySelector';
 import { ExamGuidesHub } from '@/components/landing/ExamGuidesHub';
 import { ExamQuestionSimulator } from '@/components/landing/ExamQuestionSimulator';
@@ -114,9 +115,7 @@ export default function LandingPage() {
                 Practice official citizenship test questions with timed mock tests, instant feedback, and statutory legal explanations. Prepare with confidence for the US citizen test (USCIS), Life in the UK test, Discover Canada, and Australian citizenship Our Common Bond.
               </p>
               <div className="hero-actions">
-                <Link href="/test/us" className="button-primary" title="Start free USCIS civics practice">
-                  Start practice
-                </Link>
+                <HeroPracticeButton />
                 <a href="#tracks" className="button-secondary" title="Explore all 4 citizenship exam tracks">
                   Explore exam tracks
                 </a>
@@ -128,30 +127,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="hero-visual" aria-label="CivicPass exam readiness preview">
-              <div className="hero-panel">
-                <div className="hero-panel__top">
-                  <span className="hero-panel__label">Readiness snapshot</span>
-                  <span className="hero-panel__status">Practice mode</span>
-                </div>
-                <div className="hero-score">
-                  <div>
-                    <strong>78%</strong>
-                    <p>USCIS Civics · Passing Score: 60%</p>
-                  </div>
-                  <div className="hero-score__ring"><span>+12%</span></div>
-                </div>
-                <div className="hero-progress" aria-label="78 percent readiness score"><span /></div>
-                <div className="hero-panel__footer">
-                  <span>14 answered</span>
-                  <span>12 to pass</span>
-                  <span>3 focus areas</span>
-                </div>
-              </div>
-              <div className="hero-note">
-                <span>Active Track: <strong>USCIS 100 Civics Standard</strong></span>
-              </div>
-            </div>
+            <HeroReadinessSnapshot />
           </div>
         </section>
 

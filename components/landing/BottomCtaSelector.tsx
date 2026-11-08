@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { useCountryPreference } from './CountryPreferenceProvider';
 
 export interface CtaCountry {
   id: string;
@@ -38,7 +39,8 @@ export const CTA_COUNTRIES: CtaCountry[] = [
 ];
 
 export function BottomCtaSelector() {
-  const [selectedCountry, setSelectedCountry] = useState('us');
+  const { countryId, setCountryId } = useCountryPreference();
+  const selectedCountry = countryId || 'us';
   const active =
     CTA_COUNTRIES.find((country) => country.id === selectedCountry) ?? CTA_COUNTRIES[0];
 
@@ -53,7 +55,7 @@ export function BottomCtaSelector() {
           <button
             key={country.id}
             type="button"
-            onClick={() => setSelectedCountry(country.id)}
+            onClick={() => setCountryId(country.id)}
             className={country.id === selectedCountry ? 'is-selected' : ''}
             aria-label={`Select ${country.name} exam track`}
           >

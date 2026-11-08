@@ -7,12 +7,7 @@ import { NavbarMobileToggle } from './NavbarMobileToggle';
 export { COUNTRIES } from './navbarData';
 export type { CountryOption } from './navbarData';
 
-interface NavbarProps {
-  selectedCountry?: string;
-  onCountrySelect?: (id: string) => void;
-}
-
-export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps) {
+export function Navbar() {
   return (
     <header className="site-header">
       <div className="container site-header__inner">
@@ -39,11 +34,8 @@ export function Navbar({ selectedCountry = 'us', onCountrySelect }: NavbarProps)
         </nav>
 
         <div className="site-header__actions">
-          <NavbarCountryDropdown
-            initialCountry={selectedCountry}
-            onCountrySelect={onCountrySelect}
-          />
-          <NavbarMobileToggle initialCountry={selectedCountry} />
+          <NavbarCountryDropdown />
+          <NavbarMobileToggle />
         </div>
       </div>
     </header>

@@ -1,37 +1,60 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { COUNTRIES, CountryOption } from './navbarData';
+import { useCountryPreference } from './CountryPreferenceProvider';
 
 interface NavbarCountryDropdownProps {
-  initialCountry?: string;
   onCountrySelect?: (id: string) => void;
 }
 
-export function NavbarCountryDropdown({
-  initialCountry = 'us',
-  onCountrySelect,
-}: NavbarCountryDropdownProps) {
+export function NavbarCountryDropdown({ onCountrySelect }: NavbarCountryDropdownProps = {}) {
+  const { countryId, setCountryId } = useCountryPreference();
   const [countryOpen, setCountryOpen] = useState(false);
-  const [currentCountry, setCurrentCountry] = useState(initialCountry);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const activeCountry =
-    COUNTRIES.find((country) => country.id === currentCountry) ?? COUNTRIES[0];
+    COUNTRIES.find((country) => country.id === countryId) ?? COUNTRIES[0];
+
+  useEffect(() => {
+    if (!countryOpen) return;
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setCountryOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setCountryOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [countryOpen]);
 
   const selectCountry = (id: string) => {
-    setCurrentCountry(id);
+    setCountryId(id);
     setCountryOpen(false);
     onCountrySelect?.(id);
   };
 
   return (
     <>
-      <div className="country-menu">
+      <div className="country-menu" ref={dropdownRef}>
         <button
           type="button"
           className="button-secondary country-menu__button"
           aria-expanded={countryOpen}
+          aria-haspopup="listbox"
           onClick={() => setCountryOpen((open) => !open)}
           aria-label={`Current citizenship track: ${activeCountry.name}`}
         >
@@ -50,8 +73,8 @@ export function NavbarCountryDropdown({
                 key={country.id}
                 type="button"
                 role="option"
-                aria-selected={country.id === currentCountry}
-                className={country.id === currentCountry ? 'is-active' : ''}
+                aria-selected={country.id === countryId}
+                className={country.id === countryId ? 'is-active' : ''}
                 onClick={() => selectCountry(country.id)}
               >
                 <span className="country-menu__option-text">
@@ -68,7 +91,7 @@ export function NavbarCountryDropdown({
       </div>
 
       <Link
-        href={`/test/${currentCountry}`}
+        href={`/test/${countryId}`}
         className="button-primary header-cta"
         title={`Start ${activeCountry.name} citizenship practice`}
       >

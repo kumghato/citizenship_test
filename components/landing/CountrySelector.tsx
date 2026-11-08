@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import { EXAM_DATA, SUPPORTED_COUNTRIES, SupportedCountry } from '@/lib/quizData';
+import { useCountryPreference } from './CountryPreferenceProvider';
 
 interface CountrySelectorProps {
   initialCountry?: SupportedCountry;
@@ -47,11 +47,14 @@ export function CountrySelector({
   initialCountry = 'us',
   onSelectCountry,
 }: CountrySelectorProps) {
-  const [selectedId, setSelectedId] = useState<SupportedCountry>(initialCountry);
+  const { countryId, setCountryId } = useCountryPreference();
+  const selectedId = (SUPPORTED_COUNTRIES.includes(countryId as SupportedCountry)
+    ? countryId
+    : initialCountry) as SupportedCountry;
   const active = EXAM_DATA[selectedId];
 
   const selectCountry = (id: SupportedCountry) => {
-    setSelectedId(id);
+    setCountryId(id);
     onSelectCountry?.(id);
   };
 
