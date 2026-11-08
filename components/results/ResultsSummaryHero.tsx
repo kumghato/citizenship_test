@@ -38,7 +38,7 @@ export function ResultsSummaryHero({
   const agencyName = countryId === 'us' ? 'USCIS' : officialBody.split('·')[0].trim();
 
   return (
-    <section className="relative overflow-hidden rounded-3xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-8 lg:p-10 transition-all">
+    <section className="relative overflow-hidden rounded-3xl bg-white border border-slate-200/90 shadow-sm p-5 sm:p-8 lg:p-10 transition-all">
       {/* Background radial accent tint */}
       <div
         className={`absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl ${
@@ -50,7 +50,7 @@ export function ResultsSummaryHero({
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         {/* Left Column: Certificate Eyebrow, Title, Narrative, Metrics & CTAs */}
-        <div className="lg:col-span-7 xl:col-span-8 space-y-5">
+        <div className="min-w-0 lg:col-span-7 xl:col-span-8 space-y-5">
           {/* Top banner pill */}
           <div className="inline-flex flex-wrap items-center gap-2">
             <span
@@ -89,7 +89,7 @@ export function ResultsSummaryHero({
               )}
             </h1>
 
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl break-words">
               {hasPassed ? (
                 <>
                   Your accuracy of <strong>{accuracyPercentage}%</strong> exceeds the statutory passing standard of <strong>{passingPercentage}%</strong> ({passingScore} of {totalQuestions} correct) established for the <strong>{countryName}</strong> naturalization curriculum. Review the statutory analysis below to consolidate your answers.
@@ -103,15 +103,15 @@ export function ResultsSummaryHero({
           </div>
 
           {/* Narrative Summary Box */}
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-600" />
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-wrap items-center justify-between gap-2 sm:gap-3 text-xs text-slate-600">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-2 h-2 shrink-0 rounded-full bg-blue-600" />
               <span>
                 Standard: <strong>{officialBody}</strong>
               </span>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span>
                 TIME SPENT: <strong>{timeSpentFormatted}</strong>
               </span>
@@ -126,21 +126,21 @@ export function ResultsSummaryHero({
           </div>
 
           {/* Primary Action Buttons (Separate Client Component Buttons) */}
-          <div className="pt-3 flex flex-wrap items-center gap-3">
+          <div className="pt-3 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3">
             <ScrollToReviewButton
               label={`Review Questions (${incorrectCount} Missed)`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-sm shadow-blue-500/20 hover:shadow-blue-500/35 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-sm shadow-blue-500/20 hover:shadow-blue-500/35 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
               onReviewMissed={onReviewMissed}
             />
 
             <PrintCertificateButton
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-2xs transition-colors hover:border-slate-400 cursor-pointer"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-2xs transition-colors hover:border-slate-400 cursor-pointer"
             />
 
             <RetakeExamButton
               countryId={countryId}
               label="Retake Test (New Set)"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors cursor-pointer"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors cursor-pointer"
               title="Reset timer and attempt a fresh exam set"
             />
           </div>
@@ -199,7 +199,7 @@ export function ResultsSummaryHero({
 
             {/* Gauge Threshold Bar Below the Ring */}
             <div className="w-full space-y-2 pt-2 border-t border-slate-100">
-              <div className="flex items-center justify-between text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
                 <span className="font-semibold text-slate-600">
                   Passing Threshold: <span className="text-slate-900 font-bold">{passingPercentage}% ({passingScore}/{totalQuestions})</span>
                 </span>
@@ -235,7 +235,7 @@ export function ResultsSummaryHero({
               </div>
 
               {/* Gauge sub labels */}
-              <div className="flex justify-between text-[10px] text-slate-400 font-mono">
+              <div className="flex flex-wrap justify-between gap-x-2 gap-y-1 text-[10px] text-slate-400 font-mono">
                 <span>0%</span>
                 <span className="text-slate-700 font-semibold">▲ {passingPercentage}% Passing Cutoff</span>
                 <span>100%</span>

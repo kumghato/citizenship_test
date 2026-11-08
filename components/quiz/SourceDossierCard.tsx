@@ -29,7 +29,7 @@ export function SourceDossierCard({
   return (
     <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-5 space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
           <div>
             <h3 className="text-sm font-bold text-slate-900 tracking-tight">
@@ -53,7 +53,7 @@ export function SourceDossierCard({
             <span>{dossierParchmentTitle}</span>
           </div>
 
-          <p className="text-[11.5px] text-amber-950 font-serif italic leading-relaxed line-clamp-3">
+          <p className="text-[11.5px] text-amber-950 font-serif italic leading-relaxed line-clamp-3 break-words">
             &ldquo;{currentQuestion.statutoryGuidance.legalCitation}&rdquo;
           </p>
         </div>
@@ -65,7 +65,7 @@ export function SourceDossierCard({
           <span>Statutory Authority &amp; Historical Context</span>
         </div>
 
-        <p className="text-slate-600 leading-relaxed text-[11.5px] bg-slate-50 p-3 rounded-xl border border-slate-200/70">
+        <p className="text-slate-600 leading-relaxed text-[11.5px] bg-slate-50 p-3 rounded-xl border border-slate-200/70 break-words">
           {currentQuestion.statutoryGuidance.dossierNotes}
         </p>
       </div>

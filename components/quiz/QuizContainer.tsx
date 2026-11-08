@@ -287,9 +287,9 @@ export function QuizContainer({ config }: QuizContainerProps) {
     <div className="exam-shell min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900 pb-16">
       {/* Top Navigation Bar / Exam Room Chrome */}
       <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-15 flex items-center justify-between gap-2">
           {/* Left: Exit Link & Logo (exiting clears all session & local storage) */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               type="button"
               onClick={handleExitExam}
@@ -314,18 +314,18 @@ export function QuizContainer({ config }: QuizContainerProps) {
                 height={28}
                 className="w-7 h-7 rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
               />
-              <span className="font-extrabold text-slate-900 text-base tracking-tight">
+              <span className="hidden min-[380px]:inline font-extrabold text-slate-900 text-base tracking-tight">
                 Civic<span className="text-blue-600">Pass</span>
               </span>
-              <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-blue-50 text-blue-700 border border-blue-200/70 flex items-center gap-1">
+              <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-blue-50 text-blue-700 border border-blue-200/70 flex items-center gap-1 shrink-0">
                 <span>{flag}</span>
-                <span>{countryName}</span>
+                <span className="hidden sm:inline">{countryName}</span>
               </span>
             </button>
           </div>
 
           {/* Center: Navigation Steps */}
-          <nav aria-label="Exam Progress" className="hidden md:flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200/80">
+          <nav aria-label="Exam Progress" className="hidden lg:flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200/80">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-600 text-white shadow-xs">
               <span>1. Exam Simulation</span>
             </div>
@@ -339,7 +339,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
             <button
               type="button"
               onClick={() => setIsScratchpadOpen(true)}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200/70 border border-slate-200/80 px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200/70 border border-slate-200/80 px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
               title="Open applicant notes scratchpad"
             >
               <span>Notes</span>
@@ -348,10 +348,10 @@ export function QuizContainer({ config }: QuizContainerProps) {
             <button
               type="button"
               onClick={handleResetExam}
-              className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"
               title="Reset and fetch fresh randomized questions"
             >
-              <span className="hidden sm:inline">Restart</span>
+              <span>Restart</span>
             </button>
           </div>
         </div>
@@ -396,9 +396,9 @@ export function QuizContainer({ config }: QuizContainerProps) {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
           {/* Left Column (~68% width on desktop: col-span-12 lg:col-span-8) */}
-          <section className="lg:col-span-8 space-y-6">
+          <section className="min-w-0 lg:col-span-8 space-y-4 sm:space-y-6">
             {/* Header: Timer, Badges, Dual Progress Bar */}
             <QuizHeader
               examTitle={examTitle}
@@ -472,7 +472,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
           </section>
 
           {/* Right Column (~32% width on desktop: col-span-12 lg:col-span-4) */}
-          <aside className="lg:col-span-4 space-y-6">
+          <aside className="min-w-0 lg:col-span-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6 items-start">
             {/* 1. Question Palette Grid */}
             <QuestionPalette
               totalQuestions={totalQuestions}
@@ -509,8 +509,8 @@ export function QuizContainer({ config }: QuizContainerProps) {
 
       {/* Applicant Scratchpad Modal */}
       {isScratchpadOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4 py-6 bg-slate-900/50 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[calc(100dvh-3rem)] overflow-y-auto p-5 sm:p-6 shadow-2xl border border-slate-200 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
                 <span>Applicant Scratchpad Notes</span>

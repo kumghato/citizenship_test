@@ -86,12 +86,12 @@ export function TrackSeoContent({ country }: TrackSeoContentProps) {
       />
 
       <section
-        className="w-full bg-white border-t border-slate-200 mt-12 py-12 px-4 sm:px-6 lg:px-8 text-slate-800"
+        className="w-full bg-white border-t border-slate-200 mt-12 py-10 sm:py-12 px-4 sm:px-6 lg:px-8 text-slate-800"
         aria-label={`${data.examName} Study Guide and Information`}
       >
-        <div className="max-w-5xl mx-auto space-y-12">
+        <div className="max-w-5xl mx-auto space-y-8 sm:space-y-12">
           {/* Breadcrumb Navigation */}
-          <nav aria-label="Breadcrumbs" className="flex items-center gap-2 text-xs text-slate-500">
+          <nav aria-label="Breadcrumbs" className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
             <Link href="/" className="hover:text-emerald-700 transition">
               CivicPass Home
             </Link>
@@ -116,28 +116,28 @@ export function TrackSeoContent({ country }: TrackSeoContentProps) {
           </header>
 
           {/* Key Exam Specifications Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm">
-            <div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 p-4 sm:p-5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm">
+            <div className="min-w-0">
               <span className="block text-slate-400 font-medium">Official Body</span>
-              <strong className="block text-slate-900 font-semibold mt-1">
+              <strong className="block text-slate-900 font-semibold mt-1 break-words">
                 {data.officialAgency}
               </strong>
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="block text-slate-400 font-medium">Official Document</span>
-              <strong className="block text-slate-900 font-semibold mt-1">
+              <strong className="block text-slate-900 font-semibold mt-1 break-words">
                 {data.officialSourceDoc}
               </strong>
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="block text-slate-400 font-medium">Passing Benchmark</span>
-              <strong className="block text-emerald-700 font-semibold mt-1">
+              <strong className="block text-emerald-700 font-semibold mt-1 break-words">
                 {data.passingBenchmark}
               </strong>
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="block text-slate-400 font-medium">Exam Time Limit</span>
-              <strong className="block text-slate-900 font-semibold mt-1">
+              <strong className="block text-slate-900 font-semibold mt-1 break-words">
                 {data.timeLimitText}
               </strong>
             </div>
@@ -233,11 +233,11 @@ export function TrackSeoContent({ country }: TrackSeoContentProps) {
                   <Link
                     key={cId}
                     href={`/test/${cId}`}
-                    className="p-3 bg-slate-50 hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-300 rounded-xl transition flex items-center justify-between text-xs sm:text-sm"
+                    className="p-3 bg-slate-50 hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-300 rounded-xl transition flex items-center justify-between gap-3 text-xs sm:text-sm"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
                       <span className="text-lg">{other.flag}</span>
-                      <span className="font-medium text-slate-800">{other.h1Title}</span>
+                      <span className="font-medium text-slate-800 break-words">{other.h1Title}</span>
                     </div>
                     <ChevronRight size={14} className="text-slate-400" />
                   </Link>

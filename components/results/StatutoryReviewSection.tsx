@@ -84,7 +84,7 @@ export function StatutoryReviewSection({
         </div>
 
         {/* Filter Tabs Pill Group */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200/80">
+        <div className="flex w-full lg:w-auto flex-wrap items-center gap-1.5 sm:gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200/80">
           <button
             type="button"
             onClick={() => setActiveFilter('all')}
@@ -173,7 +173,7 @@ export function StatutoryReviewSection({
 
       {/* Empty State if filter returns no items */}
       {filteredQuestions.length === 0 ? (
-        <div className="rounded-3xl bg-white border border-slate-200 p-12 text-center space-y-4">
+        <div className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 text-center space-y-4">
           <h3 className="text-lg font-bold text-slate-900">
             No questions match &ldquo;{activeFilter}&rdquo;
           </h3>
@@ -203,7 +203,7 @@ export function StatutoryReviewSection({
                     : 'border-rose-200/90 hover:border-rose-300 ring-1 ring-rose-500/10'
                 }`}
               >
-                <div className="p-6 sm:p-7 space-y-5">
+                <div className="p-5 sm:p-7 space-y-5">
                   {/* Card Header: Question index badge, Category trail, Status badge, Bookmark link */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
                     <div className="flex flex-wrap items-center gap-2.5">
@@ -241,7 +241,7 @@ export function StatutoryReviewSection({
                         }`}
                         title={isBookmarked ? 'Remove bookmark' : 'Bookmark this question for review'}
                       >
-                        <span className="hidden sm:inline">
+                        <span>
                           {isBookmarked ? 'Saved' : 'Bookmark'}
                         </span>
                       </button>
@@ -250,7 +250,7 @@ export function StatutoryReviewSection({
 
                   {/* Question Title & Subtext */}
                   <div className="space-y-1">
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug break-words">
                       {q.questionText}
                     </h3>
                     {q.subtext && (
@@ -282,7 +282,7 @@ export function StatutoryReviewSection({
                         )}
                       </div>
 
-                      <div className="text-sm font-extrabold">
+                      <div className="text-sm font-extrabold break-words">
                         {q.userAnswerText}
                       </div>
                     </div>
@@ -295,7 +295,7 @@ export function StatutoryReviewSection({
                         </span>
                       </div>
 
-                      <div className="text-sm font-extrabold text-slate-900">
+                      <div className="text-sm font-extrabold text-slate-900 break-words">
                         {q.officialAnswerText}
                       </div>
                     </div>

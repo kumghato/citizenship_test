@@ -265,7 +265,7 @@ export default function AboutUsPage() {
             <div
               style={{
                 marginTop: 40,
-                padding: '36px 32px',
+                padding: 'clamp(24px, 5vw, 36px) clamp(18px, 4vw, 32px)',
                 background: '#173d34',
                 color: '#fff',
                 borderRadius: 'var(--radius-lg)',

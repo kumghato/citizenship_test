@@ -24,7 +24,7 @@ export function ExitResultsButton({
       className={className}
       title={title}
     >
-      {children || <span className="hidden sm:inline">{label}</span>}
+      {children || <span>{label}</span>}
     </Link>
   );
 }

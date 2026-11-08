@@ -42,7 +42,7 @@ export function QuestionPalette({
       </div>
 
       {/* 20-Question Grid */}
-      <div className="grid grid-cols-5 gap-2 sm:gap-2.5">
+      <div className="grid grid-cols-5 gap-1.5 sm:gap-2.5">
         {Array.from({ length: totalQuestions }, (_, index) => {
           const isCurrent = index === currentIndex;
           const isAnswered = answers[index] !== undefined;
@@ -95,7 +95,7 @@ export function QuestionPalette({
       </div>
 
       {/* Status Legend Beneath Grid */}
-      <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600">
+      <div className="pt-2 border-t border-slate-100 grid grid-cols-1 min-[400px]:grid-cols-2 gap-2 text-[11px] text-slate-600">
         <div className="flex items-center gap-2">
           <span className="w-3.5 h-3.5 rounded-md bg-emerald-700 shrink-0" />
           <span>Answered ({answeredCount})</span>

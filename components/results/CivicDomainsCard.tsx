@@ -25,10 +25,10 @@ export function CivicDomainsCard({
   }
 
   return (
-    <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 sm:p-7 space-y-6 flex flex-col justify-between">
+    <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-5 sm:p-7 space-y-6 flex flex-col justify-between">
       {/* Card Header */}
       <div className="space-y-1.5 pb-4 border-b border-slate-100">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
               Civic Domains &amp; Performance
@@ -67,7 +67,7 @@ export function CivicDomainsCard({
               {/* Header: Title & Subtitle */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                 <div>
-                  <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-1.5">
+                  <h3 className="font-extrabold text-sm text-slate-900 flex flex-wrap items-center gap-1.5">
                     <span>{domain.name}</span>
                     {isHighMastery ? (
                       <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100/70 px-1.5 py-0.2 rounded">
@@ -89,7 +89,7 @@ export function CivicDomainsCard({
                 </div>
 
                 {/* Score and Percentage */}
-                <div className="text-right shrink-0">
+                <div className="text-left sm:text-right shrink-0">
                   <div className="text-sm font-black text-slate-900">
                     {domain.correct}/{domain.total}{' '}
                     <span
@@ -127,7 +127,7 @@ export function CivicDomainsCard({
       </div>
 
       {/* Footer Note */}
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+      <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
         <span className="flex items-center gap-1">
           <span>{statutoryRubric}</span>
         </span>

@@ -14,10 +14,10 @@ export function TargetedFocusCard({
   oralExamStatus = 'OPTIMAL',
 }: TargetedFocusCardProps) {
   return (
-    <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 sm:p-7 space-y-5 flex flex-col justify-between">
+    <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-5 sm:p-7 space-y-5 flex flex-col justify-between">
       {/* Card Header & Intelligence Recommendation Tag */}
       <div className="space-y-3 pb-3 border-b border-slate-100">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200/80 shadow-2xs">
             <span>Intelligence Recommendation</span>
           </span>

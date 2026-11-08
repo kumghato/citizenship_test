@@ -20,10 +20,10 @@ export function ResultsNavbar({
 }: ResultsNavbarProps) {
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-2">
         {/* Left: Exit link & Logo */}
-        <div className="flex items-center gap-3">
-          <ExitResultsButton label="Exit to Home" />
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-3">
+          <ExitResultsButton label="Exit" className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer" />
 
           <div className="h-4 w-px bg-slate-200 hidden sm:block" />
 
@@ -38,7 +38,7 @@ export function ResultsNavbar({
               height={32}
               className="w-8 h-8 rounded-lg shadow-xs group-hover:scale-105 transition-transform shrink-0"
             />
-            <span className="font-extrabold text-slate-900 text-base tracking-tight hidden md:inline">
+            <span className="font-extrabold text-slate-900 text-base tracking-tight hidden lg:inline">
               Civic<span className="text-blue-600">Pass</span>
             </span>
           </ExitResultsButton>
@@ -54,7 +54,7 @@ export function ResultsNavbar({
         {/* Center: Navigation Steps with Active Pill on "Results & Review" */}
         <nav
           aria-label="Exam Progress"
-          className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200/80"
+          className="hidden lg:flex shrink-0 items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200/80"
         >
           <RetakeExamButton
             countryId={countryId}
@@ -70,9 +70,9 @@ export function ResultsNavbar({
         </nav>
 
         {/* Right: Passing Benchmark Status & Retake Action */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <div
-            className={`hidden lg:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${
+            className={`hidden xl:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${
               hasPassed
                 ? 'text-emerald-800 bg-emerald-50 border-emerald-200/90'
                 : 'text-amber-800 bg-amber-50 border-amber-200/90'

@@ -25,7 +25,7 @@ export function NavbarMobileToggle({ initialCountry = 'us' }: NavbarMobileToggle
         {menuOpen ? 'Close' : 'Menu'}
       </button>
 
-      <div className="container mobile-nav" data-open={menuOpen}>
+      <div className="mobile-nav" data-open={menuOpen}>
         {NAV_LINKS.map(([label, href]) => (
           <Link key={href} href={href} onClick={() => setMenuOpen(false)}>
             {label}
@@ -34,7 +34,6 @@ export function NavbarMobileToggle({ initialCountry = 'us' }: NavbarMobileToggle
         <Link
           href={`/test/${initialCountry}`}
           className="button-primary"
-          style={{ marginTop: 14 }}
           onClick={() => setMenuOpen(false)}
         >
           Start {activeCountry.name} practice

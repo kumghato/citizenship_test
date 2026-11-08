@@ -108,7 +108,7 @@ export function QuestionCard({
                 </span>
 
                 <span
-                  className={`text-sm sm:text-base font-semibold leading-relaxed transition-colors ${
+                  className={`min-w-0 text-sm sm:text-base font-semibold leading-relaxed transition-colors break-words ${
                     isSelected ? 'text-blue-950 font-bold' : 'text-slate-800'
                   }`}
                 >

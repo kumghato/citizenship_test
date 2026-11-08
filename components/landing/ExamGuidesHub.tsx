@@ -101,8 +101,8 @@ export function ExamGuidesHub() {
               className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7 flex flex-col justify-between hover:border-emerald-300 hover:shadow-sm transition-all"
             >
               <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-3">
+                  <div className="flex min-w-0 flex-wrap items-center gap-2">
                     <span className="text-2xl" aria-hidden="true">{guide.flag}</span>
                     <span className="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
                       {guide.badge}
@@ -136,7 +136,7 @@ export function ExamGuidesHub() {
               </div>
 
               <div className="border-t border-slate-200 pt-4 mt-2">
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 text-xs text-slate-500 mb-3">
                   <span>{guide.stats.questions}</span>
                   <span className="font-semibold text-emerald-800">{guide.stats.passMark}</span>
                   <span>{guide.stats.time}</span>

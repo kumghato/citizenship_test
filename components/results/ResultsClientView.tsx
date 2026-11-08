@@ -120,7 +120,7 @@ export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-8">
         {/* Dynamic Status Callout Banner */}
         {clientMounted && isEvaluating ? (
           <div className="bg-blue-50/90 border border-blue-200/90 text-blue-950 rounded-2xl p-4 flex items-center gap-3 shadow-2xs">
@@ -178,7 +178,7 @@ export function ResultsClientView({ initialResult }: ResultsClientViewProps) {
         />
 
         {/* 3. Middle 2-Column Grid: Civic Domains Card (Left) & Targeted Focus Card (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-stretch">
           <CivicDomainsCard
             domains={currentResult.domains}
             countryName={currentResult.countryName}

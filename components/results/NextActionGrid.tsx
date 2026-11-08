@@ -44,9 +44,9 @@ export function NextActionGrid({
       </div>
 
       {/* 3-Column Action Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {/* Card 1: Practice Missed Items */}
-        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
+        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-5 sm:p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/70">
@@ -73,7 +73,7 @@ export function NextActionGrid({
         </div>
 
         {/* Card 2: Next Mock Simulation */}
-        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
+        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-5 sm:p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200/70">
@@ -102,7 +102,7 @@ export function NextActionGrid({
         </div>
 
         {/* Card 3: Commonwealth Compare */}
-        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
+        <div className="rounded-3xl bg-white border border-slate-200/90 shadow-xs p-5 sm:p-6 flex flex-col justify-between space-y-5 transition-all hover:border-slate-300 hover:shadow-sm">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/70">

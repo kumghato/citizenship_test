@@ -29,7 +29,7 @@ export function TestRulesCard({
       {/* 1. Test Benchmark Rules Card */}
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-5 space-y-4">
         {/* Top Header with Proctor Active Pill */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
           <h3 className="text-sm font-bold text-slate-900 tracking-tight">
             Test Benchmark Rules
           </h3>
@@ -111,8 +111,8 @@ export function TestRulesCard({
 
       {/* Proctor Help Modal */}
       {showProctorHelp && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4 py-6 bg-slate-900/50 backdrop-blur-xs animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full max-h-[calc(100dvh-3rem)] overflow-y-auto p-5 sm:p-6 shadow-2xl space-y-4 border border-slate-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2 text-slate-900 font-bold text-base">
                 <span>Automated Proctor Information</span>

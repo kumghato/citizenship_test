@@ -201,8 +201,10 @@ export default function ErrorPage({ error, reset, retry }: ErrorPageProps) {
                   paddingTop: '14px',
                   borderTop: '1px solid var(--line)',
                   display: 'flex',
+                  flexWrap: 'wrap',
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  gap: '8px',
                   fontSize: '12px',
                   color: 'var(--muted)',
                 }}
