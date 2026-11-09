@@ -8,9 +8,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshipte
 const pageUrl = `${siteUrl}/terms-conditions`;
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — Educational Disclaimer & Usage Terms',
+  title: 'Terms & Conditions — Usage & Disclaimer',
   description:
-    'Read the CivicPass Terms & Conditions. Understand our educational platform guidelines, intellectual property terms, acceptable use policies, and official non-affiliation statutory disclaimers.',
+    'Read the CivicPass terms and conditions: acceptable use, intellectual property and our official non-affiliation disclaimer.',
   keywords: [
     'CivicPass terms and conditions',
     'citizenship test terms of use',
@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     type: 'website',

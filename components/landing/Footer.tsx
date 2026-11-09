@@ -21,7 +21,7 @@ export function Footer() {
               </span>
             </Link>
             <p>
-              Independent educational platform helping future citizens pass their naturalization exams with verified statutory explanations, authentic mock tests, and oral interview practice.
+              Independent educational platform helping future citizens pass their naturalization exams with verified statutory explanations, authentic mock exams, and oral interview practice.
             </p>
             <div className="site-footer__badges">
               <span className="footer-tag">Official Standards</span>
@@ -68,7 +68,7 @@ export function Footer() {
                 <Link href="/#exam-guides">Study Guides Hub</Link>
               </li>
               <li>
-                <Link href="/#practice">Mock Test Simulator</Link>
+                <Link href="/#practice">Mock Exam Simulator</Link>
               </li>
               <li>
                 <Link href="/#how-it-works">How It Works</Link>

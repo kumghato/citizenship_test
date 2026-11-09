@@ -44,6 +44,10 @@ export async function generateMetadata({
     keywords: seo.keywords,
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        en: canonicalUrl,
+        'x-default': canonicalUrl,
+      },
     },
     openGraph: {
       type: 'website',

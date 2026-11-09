@@ -1,7 +1,0 @@
-# Robots.txt for https://onlinecitizenshiptest.com
-User-agent: *
-Allow: /
-Disallow: /api/
-
-# Sitemap location
-Sitemap: https://onlinecitizenshiptest.com/sitemap.xml

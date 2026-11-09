@@ -8,9 +8,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshipte
 const pageUrl = `${siteUrl}/privacy-policy`;
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — No Credit Cards, No Sensitive Data, 100% Client-Side | CivicPass',
+  title: 'Privacy Policy — Private, Client-Side Prep',
   description:
-    'Read the CivicPass Privacy Policy. Everything is client side: we do not collect credit card details, we never ask for sensitive personal data or immigration records, and all test progress remains on your local device.',
+    'Read the CivicPass privacy policy: no credit card details, no sensitive personal data or immigration records, and all practice progress stays on your device.',
   keywords: [
     'CivicPass privacy policy',
     'citizenship test privacy',
@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     type: 'website',

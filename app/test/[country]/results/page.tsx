@@ -33,8 +33,9 @@ export async function generateMetadata({
   const result = getExamResultData(normalizedCountry);
   const seo = COUNTRY_SEO_DATA[normalizedCountry];
   const canonicalUrl = `${siteUrl}/test/${normalizedCountry}/results`;
-  const title = `${result.countryName} Citizenship Exam Results & Statutory Review | CivicPass`;
-  const description = `Review your practice performance for the ${result.countryName} citizenship test (${result.officialBody}). Detailed rubric breakdown by civics domain and legal standard.`;
+  const title = `${result.countryName} Citizenship Exam Results`;
+  const description =
+    'Review your citizenship exam score with a domain-by-domain breakdown, statutory citations and next-step study recommendations.';
 
   return {
     title,
@@ -42,6 +43,10 @@ export async function generateMetadata({
     keywords: seo ? seo.keywords : [],
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        en: canonicalUrl,
+        'x-default': canonicalUrl,
+      },
     },
     openGraph: {
       type: 'website',

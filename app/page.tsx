@@ -109,10 +109,10 @@ export default function LandingPage() {
             <div className="hero-copy">
           
               <h1 className="display-title">
-                Study with a plan. <span>Pass USCIS, Life in the UK, Discover Canada & Our Common Bond.</span>
+                Study with a plan. <span>Pass your citizenship test: USCIS, Life in the UK, Discover Canada & Our Common Bond.</span>
               </h1>
               <p className="body-copy">
-                Practice official citizenship test questions with timed mock tests, instant feedback, and statutory legal explanations. Prepare with confidence for the US citizen test (USCIS), Life in the UK test, Discover Canada, and Australian citizenship Our Common Bond.
+                Practice official-style citizenship test questions with timed mock exams, instant feedback, and statutory legal explanations. Prepare with confidence for the US civics interview (USCIS), the Life in the UK exam, Discover Canada, and Australian citizenship Our Common Bond.
               </p>
               <div className="hero-actions">
                 <HeroPracticeButton />
@@ -140,7 +140,7 @@ export default function LandingPage() {
             </div>
             <div className="stat">
               <strong>1,000+</strong>
-              <span>verified test questions</span>
+              <span>verified exam questions</span>
             </div>
             <div className="stat">
               <strong>1:1</strong>
@@ -158,7 +158,7 @@ export default function LandingPage() {
           <div className="container">
             <div className="section-heading">
               <span className="eyebrow">Choose Your Exam Track</span>
-              <h2 className="section-title">One clear place to prepare for your citizenship test.</h2>
+              <h2 className="section-title">One clear place to prepare for your citizenship exam.</h2>
               <p>
                 Select your target country to launch full practice exams for the United States (USCIS), United Kingdom (Life in the UK), Canada (Discover Canada), or Australia (Our Common Bond).
               </p>
@@ -197,9 +197,9 @@ export default function LandingPage() {
           <div className="container practice-grid">
             <div className="practice-copy">
               <span className="eyebrow">Try a Real Question</span>
-              <h2 className="section-title">Experience the real exam format before test day.</h2>
+              <h2 className="section-title">Experience the real exam format before your appointment.</h2>
               <p>
-                Use this interactive preview to test questions from USCIS civics, Life in the UK, Discover Canada, and Our Common Bond.
+                Use this interactive preview to try sample questions from USCIS civics, Life in the UK, Discover Canada, and Our Common Bond.
               </p>
               <ul className="practice-list">
                 <li>Instant explanations with official statutory citations</li>
@@ -243,14 +243,76 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Citizenship Exam Study Guide */}
+        <section id="study-guide" className="section">
+          <div className="container">
+            <div className="section-heading">
+              <span className="eyebrow">Free Citizenship Exam Guide</span>
+              <h2 className="section-title">
+                Citizenship test practice questions, mock exams and study guides.
+              </h2>
+              <p>
+                CivicPass brings four official citizenship exams together in a single, free
+                study space. Each track pairs a large question bank with timed mock exams, so
+                you rehearse the format you will actually face: a spoken civics interview for
+                US naturalization, a 24-question Life in the UK exam, the IRCC Canadian
+                citizenship assessment, or the Department of Home Affairs Australian values
+                paper.
+              </p>
+              <p>
+                Every answer includes a short explanation tied to the official handbook or
+                statute, which turns a mistake into a study note instead of a dead end.
+                Progress stays in your browser only, so you can practice without an account,
+                an email address, or a credit card.
+              </p>
+            </div>
+
+            <div className="steps-grid">
+              <article className="step-card">
+                <h3>US civics questions</h3>
+                <p>
+                  Work through all 100 USCIS civics questions, including the current
+                  officeholders you may be asked about. Timed 20-question sets mirror the 60%
+                  pass mark and the oral interview style.
+                </p>
+              </article>
+              <article className="step-card">
+                <h3>Life in the UK question bank</h3>
+                <p>
+                  Work through our verified Life in the UK question bank and learning materials
+                  chapter by chapter. Sit a realistic Life in the UK mock exam with 24 questions
+                  in 45 minutes to master questions examples and answers before your test.
+                </p>
+              </article>
+              <article className="step-card">
+                <h3>Discover Canada &amp; Australia</h3>
+                <p>
+                  Use our responsive Discover Canada app for comprehensive Canadian citizenship
+                  test practice and timed mock exams, or prepare for Australian values questions
+                  where 100% is required to pass.
+                </p>
+              </article>
+            </div>
+
+            <div className="section-heading" style={{ marginTop: '2.5rem', marginBottom: 0 }}>
+              <p>
+                Unsure where to begin? Start with a timed mock exam to find your weakest
+                topics, review the explanations, then retake the questions you flagged. Two or
+                three short sessions a week are usually enough to build the recall and calm you
+                need on citizenship test day.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ Section */}
         <section id="faq" className="section faq-section">
           <div className="container faq-wrap">
             <div className="section-heading">
               <span className="eyebrow">Questions, Answered</span>
-              <h2 className="section-title">Citizenship test preparation made straightforward.</h2>
+              <h2 className="section-title">Citizenship exam preparation made straightforward.</h2>
               <p>
-                Find key answers about USCIS test questions, Life in the UK mock tests, Discover Canada guides, and Our Common Bond requirements.
+                Find key answers about USCIS civics questions, Life in the UK mock exams, Discover Canada study guides, and Our Common Bond requirements.
               </p>
             </div>
             <FaqAccordion />

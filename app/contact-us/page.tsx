@@ -16,9 +16,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshipte
 const pageUrl = `${siteUrl}/contact-us`;
 
 export const metadata: Metadata = {
-  title: 'Contact Us — Support, Question Audits & Editorial Inquiries',
+  title: 'Contact CivicPass — Support & Corrections',
   description:
-    'Contact the CivicPass team. Have questions about citizenship test practice, need to report an updated elected official or question correction, or seeking technical support? We reply within 24-48 hours.',
+    'Contact the CivicPass team about citizenship practice questions, question corrections or technical support. We reply within 24-48 hours.',
   keywords: [
     'Contact CivicPass',
     'citizenship test feedback',
@@ -29,6 +29,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     type: 'website',

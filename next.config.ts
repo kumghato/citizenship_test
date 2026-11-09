@@ -23,6 +23,23 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+        ],
+      },
+      {
+        source: "/:path*",
         has: [
           {
             type: "host",
@@ -58,22 +75,22 @@ const nextConfig: NextConfig = {
       {
         source: "/privacy",
         destination: "/privacy-policy",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/terms",
         destination: "/terms-conditions",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/about",
         destination: "/about-us",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/contact",
         destination: "/contact-us",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },

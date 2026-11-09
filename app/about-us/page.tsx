@@ -8,9 +8,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://onlinecitizenshipte
 const pageUrl = `${siteUrl}/about-us`;
 
 export const metadata: Metadata = {
-  title: 'About Us — Empowering Future Citizens with Verified Prep',
+  title: 'About CivicPass — Verified Citizenship Prep',
   description:
-    'Discover the mission behind CivicPass: an independent educational platform helping candidates pass their naturalization exams for USCIS (USA), Life in the UK (UK), Discover Canada, and Our Common Bond (Australia).',
+    'Learn how CivicPass builds verified citizenship practice questions, statutory explanations and timed mock exams for USCIS, UK, Canada and Australia.',
   keywords: [
     'About CivicPass',
     'citizenship test mission',
@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: pageUrl,
+    languages: {
+      en: pageUrl,
+      'x-default': pageUrl,
+    },
   },
   openGraph: {
     type: 'website',

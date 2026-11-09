@@ -17,28 +17,28 @@ const TRACK_DETAILS: Record<
     accent: 'USCIS Civics',
     examName: 'USCIS Civics & US Citizen Test',
     description:
-      'Official USCIS test questions, civics practice, and American citizen test simulation.',
+      'Official USCIS civics questions, practice sets, and American citizenship simulation.',
     ctaText: 'Start USCIS practice',
   },
   uk: {
     accent: 'Life in the UK',
     examName: 'Life in the UK Mock Test',
     description:
-      'Life in the UK test web practice questions, timed mock tests, and 3rd edition handbook guide.',
+      'Life in the UK practice questions, timed mock exams, and 3rd edition handbook guide.',
     ctaText: 'Take Life in the UK test',
   },
   ca: {
     accent: 'Discover Canada',
     examName: 'Discover Canada Practice Test',
     description:
-      'Canadian citizenship test practice questions aligned with the official Discover Canada guide.',
+      'Canadian citizenship practice questions aligned with the official Discover Canada guide.',
     ctaText: 'Start Canadian citizenship test',
   },
   au: {
     accent: 'Our Common Bond',
     examName: 'Our Common Bond Australian Exam',
     description:
-      'Australian citizenship Our Common Bond practice test including mandatory Australian values.',
+      'Australian citizenship Our Common Bond practice including mandatory Australian values.',
     ctaText: 'Practice Our Common Bond',
   },
 };
