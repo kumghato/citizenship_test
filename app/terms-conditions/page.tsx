@@ -92,7 +92,7 @@ export default function TermsConditionsPage() {
 
       <Navbar />
 
-      <main>
+      <main id="main-content">
         {/* Header Hero */}
         <section className="content-page-hero">
           <div className="container">

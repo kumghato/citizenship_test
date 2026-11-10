@@ -96,7 +96,7 @@ export default function PrivacyPolicyPage() {
 
       <Navbar />
 
-      <main>
+      <main id="main-content">
         {/* Header Hero */}
         <section className="content-page-hero">
           <div className="container">

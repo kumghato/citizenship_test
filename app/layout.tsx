@@ -2,6 +2,19 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { CountryPreferenceProvider } from "@/components/landing/CountryPreferenceProvider";
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  CONTACT_EMAIL,
+  CONTENT_UPDATED,
+  EDITORIAL_EMAIL,
+  OG_IMAGE_ALT,
+  OG_IMAGE_PATH,
+  POSTAL_ADDRESS,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+  SOCIAL_PROFILES,
+} from "@/lib/siteConfig";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,13 +27,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://onlinecitizenshiptest.com";
-const siteUrl = (
-  rawSiteUrl.startsWith("http://") || rawSiteUrl.startsWith("https://")
-    ? rawSiteUrl
-    : `https://${rawSiteUrl}`
-).replace(/\/+$/, "");
-
 export const viewport: Viewport = {
   themeColor: "#176b5b",
   width: "device-width",
@@ -28,7 +34,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   icons: {
     icon: [
       { url: '/icon1.svg', type: 'image/svg+xml' },
@@ -39,96 +45,47 @@ export const metadata: Metadata = {
   },
   title: {
     default: "Citizenship Test Practice — USCIS, UK, Canada & Australia",
-    template: "%s | CivicPass",
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     "Free citizenship test practice for USCIS, Life in the UK, Discover Canada and Our Common Bond. Timed mock exams with instant answers.",
-  keywords: [
-    "citizenship test",
-    "citizenship test practice",
-    "free citizenship test",
-    "online citizenship test",
-    "citizenship practice questions",
-    "citizenship exam prep",
-    "citizenship mock test",
-    "citizenship quiz",
-    "naturalization test",
-    "naturalization exam prep",
-    "naturalization interview questions",
-    "civics test",
-    "civics practice questions",
-    "USCIS",
-    "USCIS civics test",
-    "USCIS test questions",
-    "USCIS test practice",
-    "100 civics questions",
-    "US citizen test",
-    "American citizen test",
-    "US naturalization test",
-    "Life in the UK",
-    "life in the uk test",
-    "life in the uk test practice",
-    "life in the uk test questions",
-    "life in the uk mock test",
-    "life in the uk mock exam",
-    "life in the uk question bank",
-    "life in the uk questions examples",
-    "life in the uk preparation",
-    "life in the uk learning materials",
-    "life in the uk free test",
-    "life in the uk english test topics",
-    "life in the uk english test",
-    "life in the uk test questions and answers",
-    "life in the uk test web",
-    "life in the uk 3rd edition handbook",
-    "British citizenship test",
-    "ILR test",
-    "Discover Canada",
-    "Canadian citizenship",
-    "Canadian citizenship test",
-    "Canadian citizenship test practice",
-    "canadian citizenship mock test",
-    "canada citizenship test practice",
-    "Canadian citizenship practice questions",
-    "Discover Canada practice test",
-    "discover canada citizenship test",
-    "discover canada test",
-    "discover canada app",
-    "discover canada test practice",
-    "discover canada citizenship practice test",
-    "IRCC citizenship test",
-    "Our Common Bond",
-    "Our Common Bond practice test",
-    "Australian citizenship Our Common Bond",
-    "Australian citizenship test",
-    "Australian citizenship practice test",
-    "Australian values test questions",
-    "free mock exam",
-  ],
-  authors: [{ name: "CivicPass Team", url: siteUrl }],
-  creator: "CivicPass",
-  publisher: "CivicPass",
+  authors: [{ name: `${SITE_NAME} Editorial Team`, url: `${SITE_URL}/about-us` }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   alternates: {
-    canonical: siteUrl,
+    canonical: SITE_URL,
     languages: {
-      en: siteUrl,
-      "x-default": siteUrl,
+      en: SITE_URL,
+      "x-default": SITE_URL,
+    },
+    types: {
+      "text/plain": "/llms.txt",
     },
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
-    siteName: "CivicPass",
-    title: "CivicPass — Citizenship Test Practice",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Citizenship Test Practice`,
     description:
-      "Pass your citizenship exam on the first attempt. Free verified practice questions, timed mock exams, and statutory explanations for USCIS, Life in the UK, Discover Canada, and Our Common Bond.",
+      "Pass your citizenship exam on the first attempt. Free verified practice questions, timed mock exams, and handbook explanations for USCIS, Life in the UK, Discover Canada, and Our Common Bond.",
+    images: [
+      {
+        url: OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: OG_IMAGE_ALT,
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CivicPass — Citizenship Test Practice",
+    title: `${SITE_NAME} — Citizenship Test Practice`,
     description:
       "Study official questions for USCIS, Life in the UK, Discover Canada, and Australian citizenship Our Common Bond.",
+    images: [OG_IMAGE_PATH],
   },
   robots: {
     index: true,
@@ -136,35 +93,57 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
       "max-image-preview": "large",
-      "max-snippet": -1,
     },
   },
 };
 
-const websiteSchema = {
+const websiteSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: SITE_NAME,
+  description: SITE_TAGLINE,
+  inLanguage: "en",
+  publisher: { "@id": `${SITE_URL}/#organization` },
+};
+
+const organizationSchema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "@id": `${SITE_URL}/#organization`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/icon1.svg`,
+  },
+  image: `${SITE_URL}${OG_IMAGE_PATH}`,
+  description:
+    "Independent educational platform delivering verified citizenship test questions and mock exams for the United States, United Kingdom, Canada, and Australia.",
+  email: CONTACT_EMAIL,
+  dateModified: CONTENT_UPDATED,
+  contactPoint: [
     {
-      "@type": "WebSite",
-      "@id": `${siteUrl}/#website`,
-      url: siteUrl,
-      name: "CivicPass",
-      description:
-        "Official citizenship practice tests for USCIS, Life in the UK, Discover Canada, and Our Common Bond.",
-      inLanguage: "en",
+      "@type": "ContactPoint",
+      email: CONTACT_EMAIL,
+      contactType: "customer support",
+      availableLanguage: ["en"],
     },
     {
-      "@type": "EducationalOrganization",
-      "@id": `${siteUrl}/#organization`,
-      name: "CivicPass",
-      url: siteUrl,
-      logo: `${siteUrl}/icon1.svg`,
-      description:
-        "Independent educational platform delivering verified citizenship test questions and mock exams for the United States, United Kingdom, Canada, and Australia.",
+      "@type": "ContactPoint",
+      email: EDITORIAL_EMAIL,
+      contactType: "editorial review and question corrections",
+      availableLanguage: ["en"],
     },
   ],
+  ...(SOCIAL_PROFILES.length > 0
+    ? { sameAs: SOCIAL_PROFILES.map((profile) => profile.href) }
+    : {}),
+  ...(POSTAL_ADDRESS
+    ? { address: { "@type": "PostalAddress", ...POSTAL_ADDRESS } }
+    : {}),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -174,12 +153,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <JsonLd data={websiteSchema} />
+        <JsonLd data={organizationSchema} />
       </head>
       <body className="min-h-full flex flex-col">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <CountryPreferenceProvider>{children}</CountryPreferenceProvider>
         <Script
           src="https://www.googletagmanager.com/gtm.js?id=GTM-WQHDMNVG"

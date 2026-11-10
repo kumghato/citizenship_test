@@ -9,73 +9,73 @@ const TRACK_GUIDES = [
     id: 'us',
     flag: '🇺🇸',
     agency: 'USCIS · U.S. Dept of Homeland Security',
-    badge: 'USCIS Civics Track',
-    h3Title: 'USCIS Civics Questions & US Naturalization Prep',
+    badge: 'US track',
+    h3Title: 'United States — the civics interview',
     summary:
-      'Master the USCIS civics exam with questions drawn from the official 100 civics pool. Prepare for your naturalization interview with realistic, timed American citizenship simulations.',
+      'An officer reads up to ten prompts and you answer out loud. We cover the full published pool, plus the current office holders you may be asked about.',
     keyPoints: [
-      '100 official civics questions covering government, history & symbols',
-      'Timed 20-question USCIS civics session matching the 60% passing benchmark',
-      'Instant statutory notes, Constitution citations & oral rehearsal prompts',
+      'Every prompt in the official pool, not a sample',
+      'Timed 20-question sets against a 60% pass mark',
+      'A short note on each answer, with the clause behind it',
     ],
-    stats: { questions: '20 questions', passMark: '60% (12 to pass)', time: '20 mins' },
+    stats: { questions: 'Up to 10 asked', passMark: '60% (6 of 10)', time: 'Spoken pace' },
     href: '/test/us',
-    cta: 'Practice USCIS Civics Questions',
-    metaKeywordLabel: 'USCIS · American Civics',
+    cta: 'Practise the US interview',
+    metaKeywordLabel: 'USCIS · Civics',
   },
   {
     id: 'uk',
     flag: '🇬🇧',
     agency: 'Home Office · UK Visas & Immigration',
-    badge: 'Life in the UK Track',
-    h3Title: 'Life in the UK Test — Question Bank & Mock Exam',
+    badge: 'UK track',
+    h3Title: 'United Kingdom — settlement and citizenship paper',
     summary:
-      'Complete Life in the UK preparation for British citizenship and settlement. Access our verified Life in the UK question bank with questions examples, learning materials, and timed mock exams.',
+      'A 45-minute timed set drawn from the third edition of the official handbook. The real paper asks 24 questions and you need 18 right; practice runs use the same clock and pass mark.',
     keyPoints: [
-      'Authentic Life in the UK question bank with questions examples and answers',
-      'Timed 24-question Life in the UK mock exam matching official Home Office standards',
-      'Free Life in the UK learning materials and handbook citations for every question',
+      'Timed set with the Home Office 75% pass mark',
+      'Chapter notes for the whole handbook, in reading order',
+      'Every answer shows the page it came from',
     ],
-    stats: { questions: '24 questions', passMark: '75% (18 to pass)', time: '45 mins' },
+    stats: { questions: '20 per practice set', passMark: '75% (18 of 24)', time: '45 mins' },
     href: '/test/uk',
-    cta: 'Take a Life in the UK Mock Exam',
-    metaKeywordLabel: 'Life in the UK · UKVI Handbook',
+    cta: 'Take a UK mock paper',
+    metaKeywordLabel: 'Home Office · 3rd edition',
   },
   {
     id: 'ca',
     flag: '🇨🇦',
     agency: 'Immigration, Refugees and Citizenship Canada (IRCC)',
-    badge: 'Discover Canada Track',
-    h3Title: 'Discover Canada — Canadian Citizenship Test Practice',
+    badge: 'Canada track',
+    h3Title: 'Canada — rights, history and government',
     summary:
-      'Prepare for the Discover Canada citizenship test with verified questions drawn directly from the official IRCC study guide. Experience our responsive web-based Discover Canada app on any device.',
+      'A 20-question, 30-minute assessment modelled on the IRCC guide. Fifteen correct answers passes.',
     keyPoints: [
-      'Realistic Canadian citizenship mock test simulating the 20-question, 30-minute exam',
-      'Comprehensive Discover Canada test practice covering Confederation, Charter & symbols',
-      'Zero-install Discover Canada app with instant statutory feedback and study notes',
+      'Timed 20-question set in the IRCC format',
+      'Charter, Confederation and symbolism covered in full',
+      'Feedback on each answer as you go',
     ],
     stats: { questions: '20 questions', passMark: '75% (15 to pass)', time: '30 mins' },
     href: '/test/ca',
-    cta: 'Start Discover Canada Practice',
-    metaKeywordLabel: 'Discover Canada · Canadian Citizenship',
+    cta: 'Start the Canadian paper',
+    metaKeywordLabel: 'IRCC · Discover Canada',
   },
   {
     id: 'au',
     flag: '🇦🇺',
     agency: 'Department of Home Affairs (DHA)',
-    badge: 'Our Common Bond Track',
-    h3Title: 'Our Common Bond — Australian Citizenship Practice Exam',
+    badge: 'Australia track',
+    h3Title: 'Australia — values and civic knowledge',
     summary:
-      'Prepare for the DHA Australian citizenship assessment with official Our Common Bond practice questions. Revise parts 1 through 4, with dedicated focus on mandatory Australian values.',
+      'Twenty questions in 45 minutes, including five compulsory values questions that must all be right.',
     keyPoints: [
-      'Mandatory Australian values questions practice (100% required to pass)',
-      'Australian citizenship Our Common Bond practice with 20 questions',
-      'Covers democratic beliefs, Australian institutions, people & traditions',
+      'Values section where every answer must be correct',
+      '20-question paper modelled on the official booklet',
+      'Coverage of parts 1 to 4, in booklet order',
     ],
-    stats: { questions: '20 questions', passMark: '75% + 100% Values', time: '45 mins' },
+    stats: { questions: '20 questions', passMark: '75% + 5/5 values', time: '45 mins' },
     href: '/test/au',
-    cta: 'Practice Our Common Bond Questions',
-    metaKeywordLabel: 'Our Common Bond · Australian Values',
+    cta: 'Practise Australian values',
+    metaKeywordLabel: 'DHA · Our Common Bond',
   },
 ];
 
@@ -84,13 +84,11 @@ export function ExamGuidesHub() {
     <section id="exam-guides" className="section bg-white border-y border-slate-200">
       <div className="container">
         <div className="section-heading max-w-2xl">
-          <span className="eyebrow">Comprehensive Track Breakdown</span>
-          <h2 className="section-title">
-            Official Study Material for USCIS, Life in the UK, Discover Canada & Our Common Bond
-          </h2>
+          <span className="eyebrow">Track Breakdown</span>
+          <h2 className="section-title">What each exam actually asks.</h2>
           <p>
-            Choose your destination country to practice verified citizenship questions,
-            understand exact passing scores, and study official statutory materials.
+            Four papers, four formats. Here is the length, the clock and the pass mark
+            for each, so you can choose the right place to start.
           </p>
         </div>
 

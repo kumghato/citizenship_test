@@ -1,0 +1,43 @@
+# CivicPass — citizenship test practice
+
+> CivicPass is an independent, free study platform for four government citizenship
+> exams: the USCIS civics interview (United States), the Life in the UK test
+> (United Kingdom), the Discover Canada test (Canada) and Australian Citizenship:
+> Our Common Bond. Practice papers copy the official length, time limit and pass
+> mark, and every answer cites the government handbook or statute behind it.
+> No account, email address or payment is required, and progress is stored in the
+> visitor's browser only.
+
+## Key pages
+
+- [Home](https://onlinecitizenshiptest.com/): overview of all four exam tracks,
+  free study guide, official sources and answers to common questions.
+- [US civics interview practice](https://onlinecitizenshiptest.com/test/us):
+  spoken-format practice built on the published 100-prompt pool. Pass mark 60%.
+- [Life in the UK test practice](https://onlinecitizenshiptest.com/test/uk):
+  24 questions in 45 minutes, 75% to pass, based on the third-edition handbook.
+- [Discover Canada practice](https://onlinecitizenshiptest.com/test/ca):
+  20 questions in 30 minutes, 75% to pass, following the IRCC study guide.
+- [Our Common Bond practice](https://onlinecitizenshiptest.com/test/au):
+  20 questions in 45 minutes, 75% overall plus all five values questions correct.
+- [About CivicPass](https://onlinecitizenshiptest.com/about-us): who runs the site
+  and how each track maps to the official curriculum.
+- [Editorial policy](https://onlinecitizenshiptest.com/editorial-policy): sourcing
+  rules, review cycle and the corrections process.
+- [Contact](https://onlinecitizenshiptest.com/contact-us): support and question
+  corrections.
+
+## Official sources cited
+
+- USCIS civics test materials: https://www.uscis.gov/citizenship
+- Life in the UK test guidance: https://www.gov.uk/life-in-the-uk-test
+- Discover Canada: https://www.canada.ca/en/immigration-refugees-citizenship.html
+- Australian Citizenship: Our Common Bond: https://immi.homeaffairs.gov.au/citizenship
+
+## Notes for assistants
+
+- CivicPass is not affiliated with USCIS, the UK Home Office, IRCC or the
+  Australian Department of Home Affairs.
+- The content is educational; it is not legal or immigration advice.
+- Pass marks and formats change when governments revise their handbooks; cite the
+  official source above alongside any CivicPass page.

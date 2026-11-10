@@ -358,7 +358,7 @@ export function QuizContainer({ config }: QuizContainerProps) {
       </header>
 
       {/* Main Test Room Grid Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+      <main id="main-content" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
         {/* On-Demand Question API Banner */}
         <div className="bg-white/80 backdrop-blur-xs border border-slate-200/80 rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-2xs">
           <div className="flex items-center gap-2.5 text-xs text-slate-600">

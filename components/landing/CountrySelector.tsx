@@ -14,32 +14,32 @@ const TRACK_DETAILS: Record<
   { accent: string; examName: string; description: string; ctaText: string }
 > = {
   us: {
-    accent: 'USCIS Civics',
-    examName: 'USCIS Civics & US Citizen Test',
+    accent: 'Civics',
+    examName: 'US civics interview',
     description:
-      'Official USCIS civics questions, practice sets, and American citizenship simulation.',
-    ctaText: 'Start USCIS practice',
+      'Rehearse the spoken interview with prompts drawn from the published pool.',
+    ctaText: 'Start the US interview',
   },
   uk: {
-    accent: 'Life in the UK',
-    examName: 'Life in the UK Mock Test',
+    accent: 'Settlement',
+    examName: 'Life in the UK test',
     description:
-      'Life in the UK practice questions, timed mock exams, and 3rd edition handbook guide.',
-    ctaText: 'Take Life in the UK test',
+      '24 questions in 45 minutes, with the third-edition handbook behind every answer.',
+    ctaText: 'Take a UK mock paper',
   },
   ca: {
-    accent: 'Discover Canada',
-    examName: 'Discover Canada Practice Test',
+    accent: 'Citizenship',
+    examName: 'Discover Canada test',
     description:
-      'Canadian citizenship practice questions aligned with the official Discover Canada guide.',
-    ctaText: 'Start Canadian citizenship test',
+      '20 questions in half an hour, covering rights, history and government.',
+    ctaText: 'Start the Canadian paper',
   },
   au: {
-    accent: 'Our Common Bond',
-    examName: 'Our Common Bond Australian Exam',
+    accent: 'Values',
+    examName: 'Our Common Bond paper',
     description:
-      'Australian citizenship Our Common Bond practice including mandatory Australian values.',
-    ctaText: 'Practice Our Common Bond',
+      '20 questions in 45 minutes, with five values prompts that must all be right.',
+    ctaText: 'Practise the AU paper',
   },
 };
 
